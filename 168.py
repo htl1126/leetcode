@@ -1,4 +1,6 @@
 # Solution Key: Convert a decimal number to a number of base 26
+# Time complexity: O(n), n is the number of digits of the resulting number
+# Space complexity: O(n), n is the number of digits of the resulting number
 class Solution:
     # @return a string
     def convertToTitle(self, num):
