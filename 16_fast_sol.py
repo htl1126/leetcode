@@ -1,3 +1,5 @@
+# source: https://leetcode.com/discuss/70274/56-ms-python-solution
+
 class Solution(object):
     def threeSumClosest(self, nums, target):
         """
