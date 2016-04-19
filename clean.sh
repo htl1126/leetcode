@@ -1,2 +1,3 @@
-rm -rf *~
-rm -rf *.pyc
+find . -name \*.pyc -delete
+find . -name \*~ -delete
+find . -type d -name '.ropeproject' -exec rm -rf {} \;
