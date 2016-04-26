@@ -1,3 +1,6 @@
+# ref: https://leetcode.com/discuss/59091/python-concise-solution-with
+#              -comments-using-ordereddict
+
 import collections
 
 
