@@ -1,10 +1,10 @@
-import sys 
+import sys
 
 # Extended prob: what if there are multiple targets?
 
 class Solution(object):
     def twoSum(self, nums, target):
-        """ 
+        """
         :type nums: List[int]
         :type target: int
         :rtype: List[int]
@@ -14,7 +14,7 @@ class Solution(object):
             if nums[i] in lookup_dict:
                 return [lookup_dict[nums[i]], i + 1]
             else:
-                lookup_dict[target - nums[i]] = i + 1 
+                lookup_dict[target - nums[i]] = i + 1
 
 if __name__ == '__main__':
     sol = Solution()
