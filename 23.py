@@ -17,7 +17,7 @@ class Solution(object):
         """
         from heapq import heappop, heapreplace, heapify
         dummy = node = ListNode(None)
-        h = [(n.val, n) for n in lists]
+        h = [(n.val, n) for n in lists if n]
         heapify(h)
         while h:
             val, n = h[0]
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     head_2.next = ListNode(4)
     head_3 = ListNode(6)
     head_3.next = ListNode(7)
-    result = sol.mergeKLists([head_1, head_2, head_3])
+    result = sol.mergeKLists([])
     while result:
         print result.val
         result = result.next
