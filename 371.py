@@ -1,5 +1,6 @@
 # ref: https://discuss.leetcode.com/topic/49771/java-simple-easy-understand
 #              -solution-with-explanation
+# ref: https://discuss.leetcode.com/topic/49900/python-solution/2
 
 
 class Solution(object):
@@ -9,16 +10,15 @@ class Solution(object):
         :type b: int
         :rtype: int
         """
-        if a == 0:
-            return b
-        if b == 0:
-            return a
+        MAX_INT = 0x7FFFFFFF
+        MIN_INT = 0x80000000
+        mask = 0x100000000
         while b != 0:
             carry = a & b
-            a ^= b
-            b = carry << 1
-        return a
+            a = (a ^ b) % mask
+            b = (carry << 1) % mask
+        return a if a <= MAX_INT else ~((a % MIN_INT) ^ MAX_INT)
 
 if __name__ == '__main__':
     sol = Solution()
-    print sol.getSum(3, 4)
+    print sol.getSum(-1, 1)
