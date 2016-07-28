@@ -1,3 +1,6 @@
+# ref: https://discuss.leetcode.com/topic/34491/clever-idea-making-it-simple
+
+
 class Solution(object):
     def search(self, nums, target):
         """
@@ -5,25 +8,24 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        start, end = 0, len(nums) - 1
-        while start < end:
-            mid = (start + end) / 2
-            if nums[mid] > nums[end]:
-                start = mid + 1
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = (left + right) / 2
+            if (nums[mid] >= nums[0]) == (target >= nums[0]):
+                num = nums[mid]
             else:
-                end = mid
-        rot = start
-        start, end = 0, len(nums) - 1
-        n = len(nums)
-        while start <= end:
-            mid = (start + end) / 2
-            realmid = (mid + rot) % n
-            if nums[realmid] == target:
-                return realmid
-            elif nums[realmid] > target:
-                end = mid - 1
+                if target < nums[0]:
+                    num = - float('inf')
+                else:
+                    num = float('inf')
+            if num < target:
+                left = mid + 1
+            elif num > target:
+                right = mid
             else:
-                start = mid + 1
+                return mid
+        if left == right and nums[left] == target:
+            return left
         return -1
 
 if __name__ == '__main__':
