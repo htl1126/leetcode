@@ -9,22 +9,19 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        return self.findKthSmallest(nums, len(nums) + 1 - k)
-
-    def findKthSmallest(self, nums, k):
         if nums:
             pos = self.partition(nums, 0, len(nums) - 1)
             if k > pos + 1:
-                return self.findKthSmallest(nums[pos + 1:], k - pos - 1)
+                return self.findKthLargest(nums[pos + 1:], k - (pos + 1))
             elif k < pos + 1:
-                return self.findKthSmallest(nums[:pos], k)
+                return self.findKthLargest(nums[:pos], k)
             else:
                 return nums[pos]
 
-    def partition(self, nums, l, r):  # do partitioning in-place
+    def partition(self, nums, l, r):
         low = l
         while l < r:
-            if nums[l] < nums[r]:
+            if nums[l] > nums[r]:
                 nums[low], nums[l] = nums[l], nums[low]
                 low += 1
             l += 1
@@ -33,4 +30,4 @@ class Solution(object):
 
 if __name__ == '__main__':
     sol = Solution()
-    print sol.findKthLargest([1, 2, 7, 3, 6, 5])
+    print sol.findKthLargest([3, 2, 1, 5, 6, 4], 2)
