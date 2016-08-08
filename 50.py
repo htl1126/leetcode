@@ -1,4 +1,6 @@
+# ref: https://discuss.leetcode.com/topic/15630/shortest-python-guaranteed/2
 import sys
+
 
 class Solution(object):
     def myPow(self, x, n):
@@ -7,23 +9,16 @@ class Solution(object):
         :type n: int
         :rtype: float
         """
-        temp = x
-        result = 1
-        if n == 0:
-            return 1
-        negative = False
         if n < 0:
+            x = 1 / x
             n = -n
-            negative = True
-        while n > 0:
-            if n % 2 == 1:
-                result *= temp
-            temp = temp ** 2
-            n /= 2
-        if negative:
-            return 1 / result
-        else:
-            return result
+        temp, ans = x, 1
+        while n:
+            if n & 1:
+                ans *= temp
+            n >>= 1
+            temp **= 2
+        return ans
 
 if __name__ == '__main__':
     sol = Solution()
