@@ -30,22 +30,18 @@ class WordDictionary(object):
         return self.searchWord(self.dic, word)
 
     def searchWord(self, node, word):
-        n = node
-        for i in xrange(len(word)):
-            if word[i] == '.':
-                for char in n:
-                    if char != 'end':
-                        if self.searchWord(n[char], word[i + 1:]):
-                            return True
-                return False
+        if word == '':
+            return 'end' in node
+        if word[0] == '.':
+            for c in node:
+                if c != 'end' and self.searchWord(node[c], word[1:]):
+                    return True
+            return False
+        else:
+            if word[0] in node:
+                return self.searchWord(node[word[0]], word[1:])
             else:
-                if word[i] in n:
-                    n = n[word[i]]
-                else:
-                    return False
-        if 'end' in n:
-            return True
-        return False
+                return False
 
 # Your WordDictionary object will be instantiated and called as such:
 # wordDictionary = WordDictionary()
