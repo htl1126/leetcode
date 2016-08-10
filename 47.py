@@ -1,5 +1,5 @@
-# ref: https://leetcode.com/discuss/18212/my-elegant-recursive
-#              -c-solution-with-inline-explanation
+# ref: https://discuss.leetcode.com/topic/32976/9-line-python-solution-with-1-
+#              line-to-handle-duplication-beat-99-of-others
 
 
 class Solution(object):
@@ -8,19 +8,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        res = []
-        self.dfs(nums, 0, res)
-        return res
-
-    def dfs(self, nums, begin, res):
-        if begin == len(nums):
-            if nums not in res:
-                res.append(nums[:])
-        else:
-            for i in xrange(begin, len(nums)):
-                nums[i], nums[begin] = nums[begin], nums[i]
-                self.dfs(nums, begin + 1, res)
-                nums[i], nums[begin] = nums[begin], nums[i]
+        ans = [[]]
+        for n in nums:
+            new_ans = []
+            for l in ans:
+                for i in xrange(len(l) + 1):
+                    new_ans.append(l[:i] + [n] + l[i:])
+                    if i < len(l) and l[i] == n:
+                        break
+            ans = new_ans
+        return ans
 
 if __name__ == '__main__':
     sol = Solution()
