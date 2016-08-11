@@ -9,7 +9,7 @@ class Solution(object):
         :rtype: int
         """
         left, right = 0, len(nums) - 1
-        while left < right:
+        while left <= right:
             mid = (left + right) / 2
             if (nums[mid] >= nums[0]) == (target >= nums[0]):
                 num = nums[mid]
@@ -21,11 +21,9 @@ class Solution(object):
             if num < target:
                 left = mid + 1
             elif num > target:
-                right = mid
+                right = mid - 1
             else:
                 return mid
-        if left == right and nums[left] == target:
-            return left
         return -1
 
 if __name__ == '__main__':
