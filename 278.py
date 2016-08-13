@@ -11,13 +11,10 @@ class Solution(object):
         :rtype: int
         """
         left, right = 1, n
-        while left < right:
+        while left <= right:
             mid = (left + right) / 2
             if isBadVersion(mid):
-                right = mid
+                right = mid - 1
             else:
-                if left + 1 == right and isBadVersion(right):
-                    return right
-                left = mid
-        if left == right and isBadVersion(left):
-            return left
+                left = mid + 1
+        return left
