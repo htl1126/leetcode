@@ -11,14 +11,14 @@ class Solution(object):
         """
         events = sorted([(L, -H, R) for L, R, H in buildings] + list(
             {(R, 0, None) for _, R, _ in buildings}))
-        res, hp = [[[0, 0]], [(0, float('inf'))]]
+        res, hp = [[[0, 0]], [(0, float('inf'))]]  # (0, inf) is important
         for x, negH, R in events:
-            while x >= hp[0][1]:
+            while x >= hp[0][1]:  # remove buildings behind the 'scan line'
                 heapq.heappop(hp)
-            if negH:
+            if negH:  # add a new building height to the heap
                 heapq.heappush(hp, (negH, R))
-            if res[-1][1] + hp[0][0]:
-                res += [x, -hp[0][0]],
+            if res[-1][1] + hp[0][0]:  # add a point when the highest point so
+                res += [x, -hp[0][0]],  # far changed
         return res[1:]
 
 if __name__ == '__main__':
