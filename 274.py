@@ -1,6 +1,6 @@
 import sys
-
 # ref: https://leetcode.com/discuss/59615/accepted-python-solution-36ms
+
 
 class Solution(object):
     def hIndex(self, citations):
@@ -21,8 +21,8 @@ class Solution(object):
         for i in xrange(num_cite - 1, -1, -1):
             h += count[i]
             if h >= i + 1:
-                return min(h, i + 1) # in case input is [0]
-        return h
+                return i + 1
+        return h  # in case input is [0]
 
 if __name__ == '__main__':
     sol = Solution()
