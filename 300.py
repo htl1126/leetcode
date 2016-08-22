@@ -3,6 +3,8 @@
 # The O(nlgn) DP solution
 # O(lgn) comes from the trick that the LIS sequence is kept
 # And every number in the LIS sequence should be as small as possible
+# However the resulting sequence may not be a valid LIS, that is, S[i]
+# is the last element of a subsequence of length i
 
 
 class Solution(object):
