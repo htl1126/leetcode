@@ -14,7 +14,7 @@ class Solution(object):
             if s[k] != s[k - 1]:
                 if j >= 0 and s[k] != s[j]:
                     maxlen = max(maxlen, k - i)
-                    i = j + 1
+                    i = j + 1  # the new begin position for the new sequence
                 j = k - 1
         return maxlen if maxlen > len(s) - i else len(s) - i  # case 'eebbeee'
 
