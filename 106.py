@@ -1,3 +1,7 @@
+# ref: https://discuss.leetcode.com/topic/21286/python-short-solution
+#              -recursively
+
+
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, x):
@@ -13,21 +17,12 @@ class Solution(object):
         :type postorder: List[int]
         :rtype: TreeNode
         """
-        def build_tree(in_lo, in_hi, post_lo, post_hi):
-            if post_lo > post_hi:
-                return None
-            if post_lo == post_hi:
-                return TreeNode(postorder[post_hi])
-            root_val = postorder[post_hi]
-            root_idx = inorder.index(root_val)
-            root = TreeNode(root_val)
-            # call recursively with absolute positions
-            root.left = build_tree(in_lo, root_idx - 1,
-                                   post_lo, post_lo + (root_idx - in_lo) - 1)
-            root.right = build_tree(root_idx + 1, in_hi,
-                                    post_lo + (root_idx - in_lo), post_hi - 1)
+        if inorder:
+            ind = inorder.index(postorder.pop())
+            root = TreeNode(inorder[ind])
+            root.right = self.buildTree(inorder[ind+1:], postorder)
+            root.left = self.buildTree(inorder[:ind], postorder)
             return root
-        return build_tree(0, len(inorder) - 1, 0, len(postorder) - 1)
 
 if __name__ == '__main__':
     sol = Solution()
