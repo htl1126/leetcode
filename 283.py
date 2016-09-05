@@ -13,13 +13,13 @@ class Solution(object):
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        i = 0
-        for _ in xrange(len(nums)):
-            if nums[i] == 0:
-                del nums[i]
-                nums.append(0)
-            else:
-                i += 1
+        chaserIdx = 0
+        for runnerIdx in xrange(len(nums)):
+            if nums[runnerIdx]:
+                if chaserIdx != runnerIdx:
+                    nums[runnerIdx], nums[chaserIdx] = (
+                        nums[chaserIdx], nums[runnerIdx])
+                chaserIdx += 1
 
 if __name__ == '__main__':
     sol = Solution()
