@@ -19,20 +19,18 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        self.k = k
-        self.ans = None
-        self.helper(root)
+        def find_kth(node):
+            if not node:
+                return
+            find_kth(node.left)
+            self.k -= 1
+            if self.k == 0:
+                self.ans = node.val
+                return
+            find_kth(node.right)
+        self.k, self.ans = k, 0
+        find_kth(root)
         return self.ans
-
-    def helper(self, node):
-        if not node:
-            return
-        self.helper(node.left)
-        self.k -= 1
-        if self.k == 0:
-            self.ans = node.val
-            return
-        self.helper(node.right)
 
 if __name__ == '__main__':
     sol = Solution()
