@@ -6,14 +6,12 @@ class Solution(object):
         """
         if not nums:
             return 0
-        last, length = nums[0], 1
+        last = 0
         for i in xrange(1, len(nums)):
-            if nums[i] != last:
-                last = nums[i]
-                nums[length] = nums[i]
-                length += 1
-        nums = nums[:length]
-        return len(nums)
+            if nums[i] != nums[last]:
+                last += 1
+                nums[last] = nums[i]
+        return last + 1
 
 if __name__ == '__main__':
     sol = Solution()
