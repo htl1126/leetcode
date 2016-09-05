@@ -1,5 +1,7 @@
 # ref: https://leetcode.com/discuss/86469/python-easy-iterative-and
 #              -recursive-solution
+# Take advantage of the property: inorder traversal forms a ordered list
+# Counts at every inorder visit
 
 
 # Definition for a binary tree node.
