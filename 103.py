@@ -17,19 +17,13 @@ class Solution(object):
         """
         if not root:
             return []
-        ans, curr, stack, flag = [], [], [root], 1
-        while stack:
-            for _ in xrange(len(stack)):
-                node = stack.pop(0)
-                curr.append(node.val)
-                if node.left:
-                    stack.append(node.left)
-                if node.right:
-                    stack.append(node.right)
-            ans.append(curr[::flag])
-            curr = []
-            flag *= -1
-        return ans
+        res, level, direction = [], [root], 1
+        while level:
+            res.append([n.val for n in level][::direction])
+            direction *= -1
+            level = [kid for node in level for kid in (node.left, node.right)
+                     if kid]
+        return res
 
 if __name__ == '__main__':
     sol = Solution()
