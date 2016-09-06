@@ -8,28 +8,24 @@ class Solution(object):
         :type word: str
         :rtype: bool
         """
+        def found(i, j, word):
+            if not word:
+                return True
+            if 0 <= i < row and 0 <= j < col and board[i][j] == word[0]:
+                c = board[i][j]
+                board[i][j] = '#'
+                ans = found(i + 1, j, word[1:]) or found(i - 1, j, word[1:]) \
+                    or found(i, j - 1, word[1:]) or found(i, j + 1, word[1:])
+                board[i][j] = c
+                return ans
         if not board:
             return False
-        for i in xrange(len(board)):
-            for j in xrange(len(board[0])):
-                if self.dfs(board, i, j, word):
+        row, col = len(board), len(board[0])
+        for i in xrange(row):
+            for j in xrange(col):
+                if found(i, j, word):
                     return True
         return False
-
-    def dfs(self, board, i, j, word):
-        if len(word) == 0:
-            return True
-        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or \
-                word[0] != board[i][j]:
-            return False
-        tmp = board[i][j]
-        board[i][j] = '#'
-        ans = self.dfs(board, i - 1, j, word[1:]) or \
-            self.dfs(board, i, j - 1, word[1:]) or \
-            self.dfs(board, i, j + 1, word[1:]) or \
-            self.dfs(board, i + 1, j, word[1:])
-        board[i][j] = tmp
-        return ans
 
 if __name__ == '__main__':
     sol = Solution()
