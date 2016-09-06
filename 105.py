@@ -1,5 +1,4 @@
-# ref: https://leetcode.com/discuss/18101/sharing-my-straightforward
-#              -recursive-solution
+# ref: https://discuss.leetcode.com/topic/21287/python-short-recursive-solution
 
 
 # Definition for a binary tree node.
@@ -17,25 +16,12 @@ class Solution(object):
         :type inorder: List[int]
         :rtype: TreeNode
         """
-        return self.build_tree(preorder, inorder, 0, len(preorder) - 1, 0,
-                               len(inorder) - 1)
-
-    def build_tree(self, preorder, inorder, pre_start, pre_end, in_start,
-                   in_end):
-        if pre_start > pre_end:
-            return None
-        node = TreeNode(preorder[pre_start])
-        for i in xrange(in_start, in_end + 1):
-            if inorder[i] == node.val:
-                pos = i
-                break
-        node.left = self.build_tree(
-            preorder, inorder, pre_start + 1, pre_start + pos - in_start,
-            in_start, pos - 1)
-        node.right = self.build_tree(
-            preorder, inorder, pre_end - (in_end - pos) + 1, pre_end, pos + 1,
-            in_end)
-        return node
+        if inorder:
+            root_idx = inorder.index(preorder.pop(0))
+            root = TreeNode(inorder[root_idx])
+            root.left = self.buildTree(preorder, inorder[:root_idx])
+            root.right = self.buildTree(preorder, inorder[root_idx + 1:])
+            return root
 
 if __name__ == '__main__':
     sol = Solution()
