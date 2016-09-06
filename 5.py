@@ -1,9 +1,6 @@
-import sys
+# ref: https://discuss.leetcode.com/topic/7144/python-o-n-2-method-with-some
+#              -optimization-88ms
 
-# ref: https://leetcode.com/discuss/55968/my-0ms-c-solution
-# idea: every time we try to find a sequence of the same alphabet
-#       , then we expand the sequence to find the largest palindrome
-#       , then we proceed from the end of the last sequence of the same alphabet found
 
 class Solution(object):
     def longestPalindrome(self, s):
@@ -11,30 +8,20 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        max_len = 0
-        begin = 0
-        strlen = len(s)
-        ans = None
-        while begin + max_len / 2 < strlen:
-            right = begin + 1
-            for right in xrange(begin + 1, strlen):
-                if s[begin] != s[right]:
-                    break
-            if right == strlen - 1 and s[right] == s[begin]:
-                right += 1
-            left = begin
-            begin = right
-            while left > 0 and right < strlen:
-                if s[left - 1] == s[right]:
-                    left -= 1
-                    right += 1
-                else:
-                    break
-            if right - left > max_len:
-                max_len = right - left
-                ans = s[left:right]
-        return ans
+        if not s:
+            return 0
+        maxlen, start = 1, 0
+        for i in xrange(1, len(s)):
+            if i - maxlen - 1 >= 0 and \
+                    s[i - maxlen - 1:i + 1] == s[i - maxlen - 1:i + 1][::-1]:
+                start = i - maxlen - 1
+                maxlen += 1
+            if i - maxlen >= 0 and \
+                    s[i - maxlen:i + 1] == s[i - maxlen:i + 1][::-1]:
+                start = i - maxlen
+                maxlen += 1
+        return s[start:start + maxlen]
 
 if __name__ == '__main__':
     sol = Solution()
-    print sol.longestPalindrome(sys.argv[1])
+    print sol.longestPalindrome('aaabccb')
