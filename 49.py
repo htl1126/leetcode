@@ -4,17 +4,14 @@ class Solution(object):
         :type strs: List[str]
         :rtype: List[List[str]]
         """
-        word_dict = {}
-        for string in strs:
-            sorted_string = ''.join(sorted(string))
-            if sorted_string in word_dict:
-                word_dict[sorted_string].append(string)
+        dic = {}
+        for str in strs:
+            sorted_str = ''.join(sorted(str))
+            if sorted_str in dic:
+                dic[sorted_str].append(str)
             else:
-                word_dict[sorted_string] = [string]
-        result = []
-        for string in word_dict:
-            result.append(sorted(word_dict[string]))
-        return result
+                dic[sorted_str] = [str]
+        return [[str for str in dic[sorted_str]] for sorted_str in dic]
 
 if __name__ == '__main__':
     sol = Solution()
