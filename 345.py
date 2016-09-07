@@ -4,19 +4,15 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        s = list(s)
-        vowel_set = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
-        ptr_1, ptr_2 = 0, len(s) - 1
-        while 1:
-            while ptr_1 < len(s) and s[ptr_1] not in vowel_set:
-                ptr_1 += 1
-            while ptr_2 >= 0 and s[ptr_2] not in vowel_set:
-                ptr_2 -= 1
-            if ptr_1 >= ptr_2:
-                break
-            s[ptr_1], s[ptr_2] = s[ptr_2], s[ptr_1]
-            ptr_1 += 1
-            ptr_2 -= 1
+        l, r, s = 0, len(s) - 1, list(s)
+        while l < r:
+            if s[l] not in 'aeiouAEIOU':
+                l += 1
+            elif s[r] not in 'aeiouAEIOU':
+                r -= 1
+            else:
+                s[l], s[r] = s[r], s[l]
+                l, r = l + 1, r - 1
         return ''.join(s)
 
 if __name__ == '__main__':
