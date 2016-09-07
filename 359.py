@@ -15,15 +15,10 @@ class Logger(object):
         :type message: str
         :rtype: bool
         """
-        if message not in self.log:
-            self.log[message] = timestamp
-            return True
-        else:
-            if timestamp - self.log[message] < 10:
-                return False
-            else:
-                self.log[message] = timestamp
-                return True
+        if message in self.log and timestamp - self.log[message] < 10:
+            return False
+        self.log[message] = timestamp
+        return True
 
 # Your Logger object will be instantiated and called as such:
 # obj = Logger()
