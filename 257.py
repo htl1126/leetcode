@@ -11,18 +11,17 @@ class Solution:
     # @return {string[]}
     def binaryTreePaths(self, root):
         paths = []
-        if not root:
-            return paths
 
-        def get_path(node, path):
+        def find_path(node, cur_path):
             if not node.left and not node.right:
-                paths.append('->'.join(str(item) for item in path + [node.val]))
+                paths.append('->'.join(cur_path + [str(node.val)]))
             else:
                 if node.left:
-                    get_path(node.left, path + [node.val])
+                    find_path(node.left, cur_path + [str(node.val)])
                 if node.right:
-                    get_path(node.right, path + [node.val])
-        get_path(root, [])
+                    find_path(node.right, cur_path + [str(node.val)])
+        if root:
+            find_path(root, [])
         return paths
 
 if __name__ == '__main__':
