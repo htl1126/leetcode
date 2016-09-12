@@ -1,6 +1,3 @@
-# ref: https://leetcode.com/discuss/29207/ten-line-python-solution
-
-
 class Solution(object):
     def findMissingRanges(self, nums, lower, upper):
         """
@@ -9,16 +6,16 @@ class Solution(object):
         :type upper: int
         :rtype: List[str]
         """
-        result = []
-        nums.append(upper + 1)
-        pre = lower - 1
-        for i in nums:
-            if i == pre + 2:
-                result.append(str(i - 1))
-            elif i > pre + 2:
-                result.append('{0}->{1}'.format(pre + 1, i - 1))
-            pre = i
-        return result
+        ans = []
+        nums = [lower - 1] * (lower < nums[0]) + nums + \
+            [upper + 1] * (upper > nums[-1]) \
+            if len(nums) > 0 else [lower - 1, upper + 1]
+        for i in xrange(len(nums) - 1):
+            if nums[i] + 2 == nums[i + 1]:
+                ans.append(str(nums[i] + 1))
+            elif nums[i] + 2 < nums[i + 1]:
+                ans.append(str(nums[i] + 1) + '->' + str(nums[i + 1] - 1))
+        return ans
 
 if __name__ == '__main__':
     sol = Solution()
