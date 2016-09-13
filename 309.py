@@ -10,9 +10,9 @@ class Solution(object):
         """
         if len(prices) < 2:
             return 0
-        b0 = -prices[0]
-        b1 = b0
-        s0, s1, s2 = 0, 0, 0
+        b0 = -prices[0]  # max profit for buying at 0
+        b1 = b0  # max profit for buying at 1
+        s0, s1, s2 = 0, 0, 0  # max profit for buying at i, i - 1, i - 2
         for i in xrange(1, len(prices)):
             b0 = max(b1, s2 - prices[i])
             s0 = max(s1, b1 + prices[i])
