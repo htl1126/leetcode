@@ -1,4 +1,5 @@
 # ref: https://discuss.leetcode.com/topic/42985/hint-for-the-pattern
+# for n > 3, break n into 3's and 2's. 3's are as many as possible.
 
 
 class Solution(object):
