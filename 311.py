@@ -1,5 +1,7 @@
 # ref: https://leetcode.com/discuss/71914/java-and-python-solutions
 #              -with-and-without-tables
+# Use: Cij += Aik*Bkj if Aik != 0 and Bkj != 0
+# Cij is set to 0 by default
 
 
 class Solution(object):
