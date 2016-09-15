@@ -19,10 +19,11 @@ class Solution(object):
         for l, b, r, t in rectangles:
             A, B, C, D = (l, b), (r, b), (r, t), (l, t)
             for p, q in zip((A, B, C, D), (1, 2, 4, 8)):
-                if points[p] & q:
+                if points[p] & q:  # avoid rectangles overlapping at a point
                     return False
                 points[p] |= q
         for px, py in points:
+            # check all points except the outermost corners
             if left < px < right or bottom < py < top:
                 if points[(px, py)] not in (3, 6, 9, 12, 15):
                     return False
