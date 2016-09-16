@@ -1,5 +1,6 @@
 # ref: https://leetcode.com/discuss/18212/my-elegant-recursive
 #              -c-solution-with-inline-explanation
+# ref: https://discuss.leetcode.com/topic/17277/one-liners-in-python
 
 
 class Solution(object):
@@ -8,18 +9,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        res = []
-        self.dfs(nums, 0, res)
-        return res
-
-    def dfs(self, nums, begin, res):
-        if begin == len(nums):
-            res.append(nums[:])
-        else:
-            for i in xrange(begin, len(nums)):
-                nums[i], nums[begin] = nums[begin], nums[i]
-                self.dfs(nums, begin + 1, res)
-                nums[i], nums[begin] = nums[begin], nums[i]
+        return nums and [p[:i] + [nums[0]] + p[i:]
+                         for p in self.permute(nums[1:])
+                         for i in xrange(len(nums))] or [[]]
 
 if __name__ == '__main__':
     sol = Solution()
