@@ -1,6 +1,6 @@
+# ref: https://discuss.leetcode.com/topic/20409/python-o-n-and-o-lgn-solutions
 import sys
 
-# binary search
 
 class Solution(object):
     def searchInsert(self, nums, target):
@@ -9,28 +9,18 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        begin, end = 0, len(nums) - 1
-        middle = (begin + end) / 2
-        if target < nums[begin]:
-            return 0
-        if target > nums[end]:
-            return end + 1
-        while True:
-            if begin + 1 == end:
-                if target == nums[begin]:
-                    return begin
-                elif target == nums[end]:
-                    return end
-                else:
-                    return end
-            if target > nums[middle]:
-                begin = middle  
-                middle = (begin + end) / 2
-            elif target < nums[middle]:
-                end = middle
-                middle = (begin + end) / 2
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            if l == r:
+                return l + (nums[l] < target)
+            mid = (l + r) / 2
+            if nums[mid] > target:
+                r = mid - 1
+            elif nums[mid] < target:
+                l = mid + 1
             else:
-                return middle
+                return mid
+        return l  # for [1, 3] target = 0
 
 if __name__ == '__main__':
     sol = Solution()
