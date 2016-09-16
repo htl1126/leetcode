@@ -10,12 +10,13 @@ class Solution(object):
         def get_comb(begin, seq):
             if len(seq) == k and sum(seq) == n:
                 res.append(seq)
-            elif len(seq) < k:
-                for i in xrange(begin, 10):
+            else:
+                for i in xrange(begin + 1, 10):
                     if sum(seq) + i <= n:
-                        get_comb(i + 1, seq + [i])
-            return
-        get_comb(1, [])
+                        get_comb(i, seq + [i])
+                    else:
+                        return
+        get_comb(0, [])
         return res
 
 if __name__ == '__main__':
