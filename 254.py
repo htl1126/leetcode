@@ -7,15 +7,14 @@ class Solution(object):
         :type n: int
         :rtype: List[List[int]]
         """
-        todo, combis = [(n, 2, [])], []
-        while todo:
-            n, i, combi = todo.pop()
+        def factor(n, i, combi, combis):
             while i * i <= n:
                 if n % i == 0:
-                    combis += combi + [n / i, i],
-                    todo += (n / i, i, combi + [i]),
+                    combis += combi + [i, n / i],
+                    factor(n / i, i, combi + [i], combis)
                 i += 1
-        return combis
+            return combis
+        return factor(n, 2, [], [])
 
 if __name__ == '__main__':
     sol = Solution()
