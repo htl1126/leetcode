@@ -15,6 +15,7 @@ class Solution(object):
         second = len(nums) - 1
         i = 0
         while i <= second:
+            # Need to sort 2 first then 0: case [1, 2, 0]
             while nums[i] == 2 and i < second:
                 nums[i], nums[second] = nums[second], nums[i]
                 second -= 1
