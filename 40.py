@@ -1,6 +1,3 @@
-# ref: https://leetcode.com/discuss/55666/python-dfs-solution
-
-
 class Solution(object):
     def combinationSum(self, candidates, target):
         """
@@ -8,20 +5,25 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        res = []
+        res, n = [], len(candidates)
         candidates.sort()
-        self.dfs(candidates, target, 0, [], res)
-        return res
 
-    def dfs(self, nums, target, index, path, res):
-        if target < 0:
-            return
-        if target == 0:
-            if path not in res:
-                res.append(path)
-            return
-        for i in xrange(index, len(nums)):
-            self.dfs(nums, target - nums[i], i + 1, path + [nums[i]], res)
+        def dfs(begin, cur):
+            if sum(cur) == target:
+                res.append(cur)
+            else:
+                i = begin
+                while i < n:
+                    if sum(cur + [candidates[i]]) <= target:
+                        dfs(i + 1, cur + [candidates[i]])
+                        i += 1
+                        # avoid duplicates
+                        while i < n and candidates[i] == candidates[i - 1]:
+                            i += 1
+                    else:
+                        return
+        dfs(0, [])
+        return res
 
 if __name__ == '__main__':
     sol = Solution()
