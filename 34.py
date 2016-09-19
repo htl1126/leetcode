@@ -21,7 +21,7 @@ class Solution(object):
         left_bound = i if nums[i] == target else -1
         i, j = 0, len(nums) - 1
         while i < j:  # find the right boundary
-            mid = (i + j) / 2 + 1
+            mid = (i + j) / 2 + 1  # the tricky part
             if nums[mid] > target:
                 j = mid - 1
             else:
