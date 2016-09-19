@@ -11,7 +11,7 @@ class Solution(object):
         if len([freq for freq in ctr.values() if freq & 1 == 1]) > 1:
             return []
         char, center = [], ''
-        for k in ctr:
+        for k in ctr:  # pick the center and collect one half
             if ctr[k] % 2 == 0:
                 char += k * (ctr[k] / 2)
             else:
@@ -19,7 +19,7 @@ class Solution(object):
                 center = k
         char.sort()
         ans = [[]]
-        for c in char:
+        for c in char:  # generate all half permutations
             new_ans = []
             for l in ans:
                 for i in xrange(len(l) + 1):
