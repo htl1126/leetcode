@@ -15,8 +15,6 @@ class Solution(object):
             for j in xrange(1, col_size):
                 if matrix[i][j] == '1':
                     table[i][j] = min(table[i - 1][j], table[i][j - 1], table[i - 1][j - 1]) + 1
-                else:
-                    table[i][j] = 0
         return max([max(row) for row in table]) ** 2
 
 
