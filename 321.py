@@ -9,7 +9,7 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        def prep(nums, k):  # take k largest numbers and preserve the order
+        def prep(nums, k):  # take k first largest numbers - order preserved
             drop = len(nums) - k
             out = []
             for num in nums:
