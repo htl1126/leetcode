@@ -11,6 +11,10 @@ class Solution(object):
         cont = [0]
         for i in xrange(1, len(A)):  # Constructing the failure function
             index = cont[i - 1]
+            # find the first index value backwards such that
+            # A[index] == A[i] which means
+            # A[0:index] == A[-index:]
+            # add one if A[index] == A[i]
             while index > 0 and A[index] != A[i]:
                 index = cont[index - 1]
             cont.append(index + (A[index] == A[i]))
