@@ -1,3 +1,5 @@
+# ref: https://lefttree.gitbooks.io/leetcode/content/dataStructure/heap/
+#              trappingWater2.html
 import heapq
 
 
