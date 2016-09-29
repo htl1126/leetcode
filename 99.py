@@ -1,6 +1,8 @@
-# ref:
-# https://discuss.leetcode.com/topic/9305/detail-explain-about-how-morris
-#         -traversal-finds-two-incorrect-pointer
+# ref: https://discuss.leetcode.com/topic/9305/detail-explain-about-how-morris
+#              -traversal-finds-two-incorrect-pointer
+# The algorithm finds the first (first, second) that violates the BST property,
+# then keep updates second when find a node with the value smaller than it,
+# i.e., find the node with the smallest value in the right subtree of first.
 
 
 # Definition for a binary tree node.
