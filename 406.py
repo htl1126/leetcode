@@ -1,6 +1,5 @@
 # ref: https://discuss.leetcode.com/topic/60394/easy-concept-with-python-ac
 #              -solution
-import itertools
 
 
 class Solution(object):
@@ -10,8 +9,10 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         res = []
-        for k, g in itertools.groupby(sorted(people, reverse=True),
-                                      key=lambda x: x[0]):
-            for person in sorted(g):
-                res.insert(person[1], person)
+        for p in sorted(people, key=lambda x: (-x[0], x[1])):
+            res.insert(p[1], p)
         return res
+
+if __name__ == '__main__':
+    sol = Solution()
+    print sol.reconstructQueue([[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]])
