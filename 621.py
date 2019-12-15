@@ -10,7 +10,7 @@ class Solution(object):
         task_counts = collections.Counter(tasks).values()
         M = max(task_counts)
         Mct = task_counts.count(M)
-        return max(len(tasks), (Mct + 1) * (M - 1) + Mct)
+        return max(len(tasks), (n + 1) * (M - 1) + Mct)
 
 if __name__ == "__main__":
     sol = Solution()
