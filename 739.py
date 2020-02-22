@@ -13,8 +13,6 @@ class Solution(object):
             while stack and T[stack[-1]] < t:
                 cur = stack.pop()
                 ans[cur] = i - cur
-                print i, t
-                print ans
             stack.append(i)
 
         return ans
