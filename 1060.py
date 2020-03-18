@@ -12,11 +12,11 @@ class Solution(object):
         l, r = 0, len(nums) - 1
         while l < r:
             mid = (l + r + 1) / 2
-            if nums[mid] - nums[0] - mid >= k:
+            if nums[mid] >= nums[0] + mid + k:
                 r = mid - 1
             else:
                 l = mid
-        return k + nums[0] + l
+        return nums[0] + l + k
 
 
 if __name__ == "__main__":
