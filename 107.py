@@ -1,7 +1,3 @@
-# ref: https://leetcode.com/discuss/51638/python-solutions
-#              -dfs-recursively-dfs-stack-bfs-queue
-
-
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, x):
@@ -16,17 +12,13 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[List[int]]
         """
-        res = []
-        self.dfs(root, 0, res)
-        return res
-
-    def dfs(self, node, level, res):
-        if node:
-            if len(res) < level + 1:
-                res.insert(0, [])
-            res[-(level + 1)].append(node.val)
-            self.dfs(node.left, level + 1, res)
-            self.dfs(node.right, level + 1, res)
+        if not root:
+            return []
+        q, ans = [root], []
+        while q:
+            ans.append([node.val for node in q])
+            q = [n for node in q for n in (node.left, node.right) if n]
+        return ans[::-1]
 
 if __name__ == '__main__':
     sol = Solution()
