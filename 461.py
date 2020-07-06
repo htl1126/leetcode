@@ -1,3 +1,5 @@
+# Ref: https://leetcode.com/problems/hamming-distance/discuss/94789/Beats-100-Python
+
 class Solution(object):
     def hammingDistance(self, x, y):
         """
@@ -5,11 +7,11 @@ class Solution(object):
         :type y: int
         :rtype: int
         """
-        z = x ^ y
+        s = x ^ y
         ans = 0
-        while z:
-            ans += z & 1
-            z >>= 1
+        while s:
+            ans += 1
+            s &= (s - 1)
         return ans
 
 if __name__ == '__main__':
