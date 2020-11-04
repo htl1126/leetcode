@@ -1,5 +1,5 @@
 # ref: https://discuss.leetcode.com/topic/30572/share-some-thoughts
-
+# algo: topology sort
 
 class Solution(object):
     def findMinHeightTrees(self, n, edges):
