@@ -1,6 +1,4 @@
-# Ref: https://leetcode.com/problems/two-sum-less-than-k/discuss/331770/Simple-python-solution
-
-import collections
+# Ref: https://leetcode.com/problems/two-sum-less-than-k/discuss/323522/Python-simple-solution
 
 class Solution(object):
     def twoSumLessThanK(self, A, K):
@@ -9,14 +7,15 @@ class Solution(object):
         :type K: int
         :rtype: int
         """
-        d = collections.defaultdict(int)
-        for idx, val in enumerate(A):
-            d[val] = idx
-        for k in xrange(K - 1, min(A), -1):
-            for i in xrange(len(A)):
-                if k - A[i] in d and d[k - A[i]] != i:
-                    return k
-        return -1
+        i, j, ans = 0, len(A) - 1, -1
+        a = sorted(A)
+        while i < j:
+            if a[i] + a[j] < K:
+                ans = max(ans, a[i] + a[j])
+                i += 1
+            else:
+                j -= 1
+        return ans
 
 if __name__ == "__main__":
     sol = Solution()
