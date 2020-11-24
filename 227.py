@@ -1,6 +1,4 @@
-# ref: https://discuss.leetcode.com/topic/16807/17-lines-c-easy-20-ms
-import re
-
+# Ref: https://leetcode.com/problems/basic-calculator-ii/discuss/63076/Python-short-solution-with-stack.
 
 class Solution(object):
     def calculate(self, s):
@@ -8,26 +6,26 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        s = ''.join(s.split())
-        item_lst = re.split('(\D)', s)
-        item_lst = ['+'] + [int(item_lst[i]) if i % 2 == 0 else item_lst[i]
-                            for i in xrange(len(item_lst))] + ['+']
-        i, item_len, total, term, n = 0, len(item_lst), 0, 0, 0
-        while i < item_len:
-            if item_lst[i] in '+-':
-                total += term
-                if i + 1 >= item_len:
-                    break
-                term = [-1, 1][item_lst[i] == '+'] * item_lst[i + 1]
-                i += 2
-            else:
-                n = item_lst[i + 1]
-                if item_lst[i] == '*':
-                    term *= n
-                else:
-                    term = term / n if term > 0 else - (- term / n)  # case -3/2
-                i += 2
-        return total
+        s += "+0"
+        preOp, num, stack = "+", 0, []
+        for c in s:
+            if c.isdigit():
+                num = num * 10 + int(c)
+            elif c in "+-*/":
+                if preOp == "+":
+                    stack.append(num)
+                elif preOp == "-":
+                    stack.append(-num)
+                elif preOp == "*":
+                    stack.append(stack.pop() * num)
+                elif preOp == "/":
+                    n = stack.pop()
+                    if n < 0:
+                        stack.append(-(-n / num))
+                    else:
+                        stack.append(n / num)
+                preOp, num = c, 0
+        return sum(stack)
 
 if __name__ == '__main__':
     sol = Solution()
