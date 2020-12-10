@@ -1,42 +1,30 @@
-# ref: https://discuss.leetcode.com/topic/6575/my-solutions-in-3-
-#              languages-with-stack/2
+# Ref: https://leetcode.com/problems/binary-search-tree-iterator/discuss/52647/Nice-Comparison-(and-short-Solution)
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class BSTIterator:
 
-# Definition for a  binary tree node
-class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
-class BSTIterator(object):
-    def __init__(self, root):
-        """
-        :type root: TreeNode
-        """
+    def __init__(self, root: TreeNode):
+        self.cur = root
         self.stack = []
-        self.pushAll(root)
 
-    def hasNext(self):
-        """
-        :rtype: bool
-        """
-        return self.stack
+    def next(self) -> int:
+        while self.cur:
+            self.stack.append(self.cur)
+            self.cur = self.cur.left
+        next_node = self.stack.pop()
+        self.cur = next_node.right
+        return next_node.val
 
-    def next(self):
-        """
-        :rtype: int
-        """
-        tmp_node = self.stack.pop()
-        self.pushAll(tmp_node.right)
-        return tmp_node.val
+    def hasNext(self) -> bool:
+        return self.cur or len(self.stack) != 0
 
-    def pushAll(self, node):
-        while node:
-            self.stack.append(node)
-            node = node.left
 
-# Your BSTIterator will be called like this:
-# i, v = BSTIterator(root), []
-# while i.hasNext(): v.append(i.next())
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
