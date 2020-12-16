@@ -8,19 +8,13 @@ class TreeNode(object):
         self.right = None
 
 class Solution(object):
-    def isValidBST(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        def check_valid_BST(node, upperbound=float('inf'), lowerbound=float('-inf')):
-            if not node:
-                return True
-            if node.val >= upperbound or node.val <= lowerbound:
-                return False
-            return (check_valid_BST(node.left, min(upperbound, node.val), lowerbound)
-                    and check_valid_BST(node.right, upperbound, max(node.val, lowerbound)))
-        return check_valid_BST(root)
+    def isValidBST(self, root: TreeNode, minv=float('-inf'), maxv=float('inf')):
+        if not root:
+            return True
+        if root.val >= maxv or root.val <= minv:
+            return False
+        return self.isValidBST(root.left, minv, min(maxv, root.val)) and
+            self.isValidBST(root.right, min(maxv, root.val), maxv)
 
 if __name__ == '__main__':
     sol = Solution()
