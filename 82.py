@@ -11,25 +11,18 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        if not head or not head.next:
-            return head
-        pre_begin = ListNode(None)
-        pre_head = pre_begin
-        pre_begin.next, begin, pre_cur, cur = head, head, head, head.next
-        while cur:
-            if begin.val != cur.val:
-                if begin != pre_cur:
-                    pre_begin.next, begin, pre_cur, cur = (
-                        cur, cur, cur, cur.next)
-                else:
-                    pre_begin, begin, pre_cur, cur = (
-                        pre_begin.next, begin.next, pre_cur.next, cur.next)
+        if not head:
+            return None
+        prehead = pre = ListNode(next=head)
+        while head and head.next:
+            if head.next.val == head.val:
+                cur = head.next
+                while cur and cur.val == head.val:
+                    cur = cur.next
+                head = pre.next = cur
             else:
-                pre_cur, cur = pre_cur.next, cur.next
-        # deal with the last streak
-        if begin.val == pre_cur.val and begin != pre_cur:
-            pre_begin.next = None
-        return pre_head.next
+                pre, head = head, head.next
+        return prehead.next
 
 if __name__ == '__main__':
     sol = Solution()
