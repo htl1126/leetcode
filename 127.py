@@ -10,6 +10,8 @@ class Solution(object):
         :type wordList: Set[str]
         :rtype: int
         """
+        if endWord not in wordList:
+            return 0
         length = 2
         front = set([beginWord])
         back = set([endWord])
