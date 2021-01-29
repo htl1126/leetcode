@@ -27,7 +27,7 @@ class Solution(object):
                 if node.right:
                     new.append((node.right, i + 1))
             for i in d:
-                g[i].extend(sorted(d[i]))
+                g[i] += sorted(d[i])
             queue = new
         return [g[i] for i in sorted(g)]
 
