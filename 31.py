@@ -1,21 +1,25 @@
 class Solution(object):
     def nextPermutation(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: void Do not return anything, modify nums in-place instead.
-        """
-        i = 0
-        if len(nums) < 2:
+        i = j = len(nums) - 1
+        while i > 0 and nums[i - 1] >= nums[i]:
+            i -= 1
+        if i == 0:
+            nums.reverse()
             return
-        for i in xrange(len(nums) - 2, -1, -1):
-            if nums[i] < nums[i + 1]:
-                break
-        if nums[i] < nums[i + 1]:
-            min_idx = i + 1
-            for j in xrange(i + 1, len(nums)):
-                if nums[j] > nums[i] and nums[j] < nums[min_idx]:
-                    min_idx = j
-            nums[i], nums[min_idx] = nums[min_idx], nums[i]
-            nums[i + 1:] = sorted(nums[i + 1:])
-        else:
-            nums[:] = sorted(nums)
+
+        k = i - 1
+        while nums[j] <= nums[k]:
+            j -= 1
+        nums[k], nums[j] = nums[j], nums[k]
+
+        l, r = i, len(nums) - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1        
+
+if __name__ == "__main__":
+    sol = Solution()
+    nums = [1, 2, 5, 4, 3]
+    sol.nextPermutation(nums)
+    print(nums)
