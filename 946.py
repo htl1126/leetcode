@@ -7,13 +7,13 @@ class Solution(object):
         :type popped: List[int]
         :rtype: bool
         """
-        i = j = 0
-        for x in pushed:
-            pushed[i] = x
-            while i >= 0 and pushed[i] == popped[j]:
-                i, j = i - 1, j + 1
-            i += 1
-        return i == 0
+        stack, i = [], 0
+        for v in pushed:
+            stack.append(v)
+            while stack and stack[-1] == popped[i]:
+                stack.pop()
+                i += 1
+        return len(stack) == 0
 
 if __name__ == "__main__":
     sol = Solution()
