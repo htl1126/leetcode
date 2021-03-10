@@ -1,12 +1,4 @@
-# ref: https://leetcode.com/discuss/34749/concise-python-code-with-comments
-# Alternating the sequences, guaranteed to find the solution within two cycles
-# Example
-# A: [1 3 4]
-# B: [1 2 3 4]
-# During running the visiting sequence for each will be
-# A: 1 3 4 1 2[3]4 1 2 3...
-# B: 1 2 3 4 1[3]4
-#              ^ -> found the first intersection here
+# ref: https://leetcode.com/problems/intersection-of-two-linked-lists/discuss/49846/Python-solution-for-intersection-of-two-singly-linked-lists
 
 
 # Definition for singly-linked list.
@@ -18,18 +10,23 @@ class ListNode(object):
 
 class Solution(object):
     def getIntersectionNode(self, headA, headB):
-        """
-        :type head1, head1: ListNode
-        :rtype: ListNode
-        """
-        if headA is None or headB is None:
-            return None
-        pa = headA
-        pb = headB
-        while pa is not pb:
-            pa = headB if pa is None else pa.next
-            pb = headA if pb is None else pb.next
-        return pa
+        curA, curB = headA, headB
+        lenA, lenB = 0, 0
+        while curA:
+            curA = curA.next
+            lenA += 1
+        while curB:
+            curB = curB.next
+            lenB += 1
+        curA, curB = headA, headB
+        for _ in range(abs(lenA - lenB)):
+            if lenA > lenB:
+                curA = curA.next
+            else:
+                curB = curB.next
+        while curA != curB:
+            curA, curB = curA.next, curB.next
+        return curA
 
 if __name__ == '__main__':
     sol = Solution()
