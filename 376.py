@@ -1,20 +1,17 @@
-# ref: https://leetcode.com/articles/wiggle-subsequence/ (see the graph of #5)
-# ref: https://discuss.leetcode.com/topic/51807/3-lines-o-n-python-with
-#              -explanation-proof
-# After removing adjecent duplicate numbers, we can ensure every extreme numbers
-# together form a longest wiggle sequence
-import itertools
+# Ref: https://leetcode.com/problems/wiggle-subsequence/discuss/162996/python-O(n)-time-O(1)-space-easy-to-understand-16-ms-solution-beats-100
 
 
-class Solution(object):
-    def wiggleMaxLength(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        norep = [num for num, _ in itertools.groupby(nums)]
-        triples = zip(norep, norep[1:], norep[2:])
-        return sum((b > a) == (b > c) for a, b, c in triples) + len(norep[:2])
+class Solution:
+    def wiggleMaxLength(self, nums: List[int]) -> int:
+        length, up = 1, None
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i - 1] and up != True:
+                length += 1
+                up = True
+            if nums[i] < nums[i - 1] and up != False:
+                length += 1
+                up = False
+        return length
 
 if __name__ == '__main__':
     sol = Solution()
