@@ -1,4 +1,4 @@
-# ref: https://discuss.leetcode.com/topic/34803/short-python
+# ref: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/discuss/78334/Python-solution-memoization-dp-288ms
 
 
 class Solution(object):
@@ -7,14 +7,19 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: int
         """
-        matrix = {i + j * 1j: val for i, row in enumerate(matrix)
-                  for j, val in enumerate(row)}
-        length = {}
-        for z in sorted(matrix, key=matrix.get):
-            length[z] = 1 + max([length[Z] for Z in z + 1, z - 1, z + 1j, z - 1j
-                                 if Z in matrix and matrix[z] > matrix[Z]
-                                 ] or [0])
-        return max(length.values() or [0])  # [0] is for an empty matrix
+        def dfs(i, j):
+            if not d[i][j]:
+                val = matrix[i][j]
+                d[i][j] = 1 + max(dfs(i - 1, j) if i - 1 >= 0 and val < matrix[i - 1][j] else 0,
+                                  dfs(i, j - 1) if j - 1 >= 0 and val < matrix[i][j - 1] else 0,
+                                  dfs(i, j + 1) if j + 1 < c and val < matrix[i][j + 1] else 0,
+                                  dfs(i + 1, j) if i + 1 < r and val < matrix[i + 1][j] else 0)
+            return d[i][j]
+        if not matrix or not matrix[0]:
+            return 0
+        r, c = len(matrix), len(matrix[0])
+        d = [[0] * c for _ in range(r)]
+        return max(dfs(i, j) for i in range(r) for j in range(c))
 
 if __name__ == '__main__':
     sol = Solution()
