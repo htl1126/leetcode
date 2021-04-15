@@ -1,54 +1,40 @@
-# ref: https://discuss.leetcode.com/topic/41870/real-iterator-in-python-java-c
+# ref: https://leetcode.com/problems/flatten-nested-list-iterator/discuss/80146/Real-iterator-in-Python-Java-C%2B%2B
 
 
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger(object):
-#    def isInteger(self):
+#class NestedInteger:
+#    def isInteger(self) -> bool:
 #        """
 #        @return True if this NestedInteger holds a single integer, rather than a nested list.
-#        :rtype bool
 #        """
 #
-#    def getInteger(self):
+#    def getInteger(self) -> int:
 #        """
 #        @return the single integer that this NestedInteger holds, if it holds a single integer
 #        Return None if this NestedInteger holds a nested list
-#        :rtype int
 #        """
 #
-#    def getList(self):
+#    def getList(self) -> [NestedInteger]:
 #        """
 #        @return the nested list that this NestedInteger holds, if it holds a nested list
 #        Return None if this NestedInteger holds a single integer
-#        :rtype List[NestedInteger]
 #        """
 
-
-class NestedIterator(object):
-
-    def __init__(self, nestedList):
-        """
-        Initialize your data structure here.
-        :type nestedList: List[NestedInteger]
-        """
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        # the second number is the index of the first untaken element in nestedList
         self.stack = [[nestedList, 0]]
-
-    def next(self):
-        """
-        :rtype: int
-        """
+    
+    def next(self) -> int:
         self.hasNext()
         nestedList, i = self.stack[-1]
         self.stack[-1][1] += 1
-        return nestedList[i]
-
-    def hasNext(self):
-        """
-        :rtype: bool
-        """
+        return nestedList[i].getInteger()
+    
+    def hasNext(self) -> bool:
         s = self.stack
         while s:
             nestedList, i = s[-1]
@@ -56,10 +42,10 @@ class NestedIterator(object):
                 s.pop()
             else:
                 x = nestedList[i]
-                if type(x) is int:
+                if x.isInteger():
                     return True
                 s[-1][1] += 1
-                s.append([x, 0])
+                s.append([x.getList(), 0])
         return False
 
 # Your NestedIterator object will be instantiated and called as such:
