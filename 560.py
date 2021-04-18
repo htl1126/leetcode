@@ -9,7 +9,7 @@ class Solution(object):
         """
         count = collections.Counter()
         ans = Sum = 0
-        count[0] = 1  # edge case, used for count[0] + ... + count[n - 1] = K
+        count[0] = 1  # edge case, used for count[0] + ... + count[i] = K
         for i in xrange(len(nums)):
             Sum += nums[i]
             ans += count[Sum - k]
