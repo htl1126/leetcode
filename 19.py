@@ -1,23 +1,19 @@
+# Ref: similar to https://leetcode.com/problems/swapping-nodes-in-a-linked-list/discuss/1013859/Python3Visualization-Two-Pointers-Solution-with-Explanation
+
 # Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
-
-class Solution(object):
-    def removeNthFromEnd(self, head, n):
-        """
-        :type head: ListNode
-        :type n: int
-        :rtype: ListNode
-        """
-        dummy = ListNode(None)
-        dummy.next = head
-        p1 = p2 = pre = dummy
-        for _ in xrange(n):
-            p1 = p1.next
-        while p1:
-            p1, p2, pre = p1.next, p2.next, p2
-        pre.next = p2.next
-        return dummy.next
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        pre, first, second = None, head, head
+        for _ in range(n - 1):
+            second = second.next
+        while second.next:
+            pre, first, second = first, first.next, second.next
+        if pre:
+            pre.next = first.next
+        else:
+            head = first.next
+        return head
