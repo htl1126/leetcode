@@ -1,5 +1,4 @@
-# ref: https://leetcode.com/discuss/4220/a-very-nice-solution-from-ants
-#              -aasma-%40stackoverflow
+# Ref: https://leetcode.com/problems/first-missing-positive/discuss/17080/Python-O(1)-space-O(n)-time-solution-with-explanation
 
 
 class Solution(object):
@@ -8,17 +7,17 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        length = len(nums)
-        for i in xrange(length):
-            pick = nums[i]
-            while 0 < pick <= length and nums[pick - 1] != pick:
-                tmp = nums[pick - 1]
-                nums[pick - 1] = pick
-                pick = tmp
-        for i in xrange(length):
-            if nums[i] != i + 1:
-                return i + 1
-        return length + 1
+        nums.append(0)
+        n = len(nums)
+        for i in range(n):
+            if nums[i] < 0 or nums[i] >= n:
+                nums[i] = 0
+        for i in range(n):
+            nums[nums[i] % n] += n  # some elements might be added with n's already
+        for i in range(1, n):
+            if nums[i] < n:
+                return i
+        return n
 
 if __name__ == '__main__':
     sol = Solution()
