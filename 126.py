@@ -11,14 +11,16 @@ class Solution(object):
         :type wordlist: Set[str]
         :rtype: List[List[int]]
         """
-        wordlist.add(endWord)
+        if endWord not in wordList:
+            return []
+        wordlist = set(wordList)
         level = {beginWord}
         parents = collections.defaultdict(set)
         while level and endWord not in parents:
             next_level = collections.defaultdict(set)
             for node in level:
                 for char in 'abcdefghijklmnopqrstuvwxyz':
-                    for i in xrange(len(beginWord)):
+                    for i in range(len(beginWord)):
                         n = node[:i] + char + node[i + 1:]
                         if n in wordlist and n not in parents:
                             next_level[n].add(node)
@@ -26,7 +28,11 @@ class Solution(object):
             parents.update(next_level)
         res = [[endWord]]
         while res and res[0][0] != beginWord:
-            res = [[p]+r for r in res for p in parents[r[0]]]
+            t = []
+            for r in res:
+                for p in parents[r[0]]:
+                    t.append([p] + r)
+            res = t
         return res
 
 if __name__ == '__main__':
