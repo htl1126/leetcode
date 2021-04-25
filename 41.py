@@ -1,5 +1,5 @@
 # Ref: https://leetcode.com/problems/first-missing-positive/discuss/17080/Python-O(1)-space-O(n)-time-solution-with-explanation
-
+# Similar hash technique: https://leetcode.com/problems/find-all-duplicates-in-an-array/
 
 class Solution(object):
     def firstMissingPositive(self, nums):
