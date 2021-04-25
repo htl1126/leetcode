@@ -1,4 +1,5 @@
 # ref: https://discuss.leetcode.com/topic/3767/python-question-on-class
+# Similar to https://leetcode.com/problems/diameter-of-binary-tree/
 
 
 # Definition for a binary tree node.
