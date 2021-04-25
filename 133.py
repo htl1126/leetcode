@@ -1,32 +1,27 @@
-# ref: https://leetcode.com/discuss/64740/python-dfs-short-solution
+# ref: https://leetcode.com/problems/clone-graph/discuss/902767/Python-dfs-recursive-solution-explained
 
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
 
-# Definition for a undirected graph node
-class UndirectedGraphNode(object):
-    def __init__(self, x):
-        self.label = x
-        self.neighbors = []
-
-
-class Solution(object):
-    def __init__(self):
-        self.visited = {}
-
-    def cloneGraph(self, node):
-        """
-        :type node: UndirectedGraphNode
-        :rtype: UndirectedGraphNode
-        """
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
         if not node:
             return None
-        if node.label in self.visited:
-            return self.visited[node.label]
+        mapping = {}
+        def dfs(node):
+            mapping[node] = Node(node.val)
+            for n in node.neighbors:
+                if n not in mapping:
+                    dfs(n)
+                mapping[node].neighbors.append(mapping[n])
+        dfs(node)
+        return mapping[node]
 
-        clone = UndirectedGraphNode(node.label)
-        self.visited[node.label] = clone
-        for n in node.neighbors:
-            clone.neighbors.append(self.cloneGraph(n))
-        return clone
 
 if __name__ == '__main__':
     sol = Solution()
