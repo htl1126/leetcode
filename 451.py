@@ -1,18 +1,9 @@
-# ref: https://discuss.leetcode.com/topic/65991/python-o-n-solution-using-hash
-#              -map
-
-
-class Solution(object):
-    def frequencySort(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        from collections import Counter
-        c1, c2 = Counter(s), {}
-        for k, v in c1.items():
-            c2.setdefault(v, []).append(k * v)
-        return ''.join([''.join(c2[i]) for i in xrange(len(s), -1, -1) if i in c2])
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        c = collections.Counter(s)
+        chrs = list(c.items())
+        chrs.sort(key=lambda x: -x[1])
+        return ''.join([c * n for c, n in chrs])
 
 if __name__ == '__main__':
     sol = Solution()
