@@ -5,6 +5,8 @@ class Solution:
         email_account_map = collections.defaultdict(list)
         visited = [False] * len(accounts)
         res = []
+
+        # create a map from email accounts to name IDs (0, 1, 2, ...)
         for i, account_lst in enumerate(accounts):
             for j in range(1, len(account_lst)):
                 email_account_map[account_lst[j]].append(i)
