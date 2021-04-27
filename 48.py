@@ -7,6 +7,8 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: void Do not return anything, modify matrix in-place instead.
         """
+        # Step 1: swap rows 1 and n - 1, 2 and n - 2, ...
+        # Step 2: swap matrix[i][j] and matrix[j][i] for every (i, j)
         size = len(matrix)
         matrix.reverse()
         for i in xrange(size):
