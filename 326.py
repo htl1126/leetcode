@@ -1,20 +1,5 @@
-import sys
-import math
+# Ref: https://leetcode.com/problems/power-of-three/discuss/77977/Math-1-liner-no-log-with-explanation
 
-# Math Solution https://leetcode.com/discuss/78532/summary-all-solutions
-# -new-method-included-at-15-30pm-jan-8t
-
-class Solution(object):
-    def isPowerOfThree(self, n):
-        """
-        :type n: int
-        :rtype: bool
-        """
-        if n > 0:
-            return math.log10(n) / math.log10(3) % 1 == 0
-        else:
-            return False
-
-if __name__ == '__main__':
-    sol = Solution()
-    print sol.isPowerOfThree(int(sys.argv[1]))
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        return n > 0 == 3 ** 19 % n
