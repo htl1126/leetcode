@@ -2,22 +2,17 @@
 import sys
 
 
-class Solution(object):
-    def myPow(self, x, n):
-        """
-        :type x: float
-        :type n: int
-        :rtype: float
-        """
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
         if n < 0:
             x = 1 / x
             n = -n
-        temp, ans = x, 1
+        t, ans = x, 1
         while n:
             if n & 1:
-                ans *= temp
+                ans *= t
+            t **= 2
             n >>= 1
-            temp **= 2
         return ans
 
 if __name__ == '__main__':
