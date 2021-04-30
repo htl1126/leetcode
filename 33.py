@@ -14,7 +14,7 @@ class Solution(object):
             if (nums[mid] >= nums[0]) == (target >= nums[0]):
                 num = nums[mid]
             else:
-                if target < nums[0]:
+                if target < nums[0]:  # must be '<' not '<='
                     num = - float('inf')
                 else:
                     num = float('inf')
