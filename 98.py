@@ -7,14 +7,11 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
-class Solution(object):
-    def isValidBST(self, root: TreeNode, minv=float('-inf'), maxv=float('inf')):
+class Solution:
+    def isValidBST(self, root: TreeNode, lower=float('-inf'), upper=float('inf')) -> bool:
         if not root:
             return True
-        if root.val >= maxv or root.val <= minv:
-            return False
-        return self.isValidBST(root.left, minv, min(maxv, root.val)) and
-            self.isValidBST(root.right, min(maxv, root.val), maxv)
+        return lower < root.val < upper and self.isValidBST(root.left, lower, root.val) and self.isValidBST(root.right, root.val, upper)
 
 if __name__ == '__main__':
     sol = Solution()
