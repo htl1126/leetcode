@@ -1,33 +1,18 @@
-# ref: https://leetcode.com/discuss/18242/clean-iterative-solution
-#              -binary-searches-with-explanation
+# Ref: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14707/9-11-lines-O(log-n)
 
-
-class Solution(object):
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        if target < nums[0] or target > nums[-1]:
-            return [-1, -1]
-        i, j = 0, len(nums) - 1
-        while i < j:  # find the left boundary
-            mid = (i + j) / 2
-            if nums[mid] < target:
-                i = mid + 1
-            else:
-                j = mid
-        left_bound = i if nums[i] == target else -1
-        i, j = 0, len(nums) - 1
-        while i < j:  # find the right boundary
-            mid = (i + j) / 2 + 1  # the tricky part
-            if nums[mid] > target:
-                j = mid - 1
-            else:
-                i = mid
-        right_bound = i if nums[i] == target else -1
-        return [left_bound, right_bound]
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        def search(n):
+            l, r = 0, len(nums)  # notice the r value
+            while l < r:
+                m = (l + r) // 2
+                if nums[m] < n:
+                    l = m + 1
+                else:
+                    r = m
+            return l
+        left = search(target)
+        return [left, search(target + 1) - 1] if target in nums[left:left + 1] else [-1, -1]
 
 if __name__ == '__main__':
     sol = Solution()
