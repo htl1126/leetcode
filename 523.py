@@ -1,14 +1,7 @@
 # Ref: https://leetcode.com/problems/continuous-subarray-sum/discuss/99566/Simple-Python-(10-lines)-with-Explanation-58ms-O(n)-time-O(k)-space
 
 class Solution(object):
-    def checkSubarraySum(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: bool
-        """
-        if k == 0:
-            return any(nums[i] == 0 and nums[i + 1] == 0 for i in xrange(len(nums) - 1))
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         cum_sum_mod_k = 0
         mods = {0: -1}
         for i, n in enumerate(nums):
