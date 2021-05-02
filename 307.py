@@ -1,55 +1,44 @@
 # ref: https://discuss.leetcode.com/topic/33747/148ms-python-solution-binary
 #              -indexed-tree
 # ref: http://blog.csdn.net/l664675249/article/details/50157669
+# ref: http://codeforces.com/blog/entry/18051
+# ref: https://cp-algorithms.com/data_structures/segment_tree.html
 
 
-class NumArray(object):
-    def __init__(self, nums):
-        """
-        initialize your data structure here.
-        :type nums: List[int]
-        """
-        self.size, self.nums = len(nums), nums
-        self.tbl = [0] * (self.size + 1)
-        for i in xrange(self.size):
-            k = i + 1
-            while k <= self.size:
-                self.tbl[k] += nums[i]
-                k += (k & -k)
+class NumArray:
 
-    def update(self, i, val):
-        """
-        :type i: int
-        :type val: int
-        :rtype: int
-        """
-        diff, self.nums[i] = val - self.nums[i], val
-        i += 1
-        while i <= self.size:
-            self.tbl[i] += diff
-            i += (i & -i)
+    def __init__(self, nums: List[int]):
+        self.l = len(nums)
+        self.tree = [0] * self.l + nums
+        for i in range(self.l - 1, 0, -1):
+            self.tree[i] = self.tree[i << 1] + self.tree[i << 1 | 1]
 
-    def sumRange(self, i, j):
-        """
-        sum of elements nums[i..j], inclusive.
-        :type i: int
-        :type j: int
-        :rtype: int
-        """
-        ans, j = 0, j + 1
-        while j:
-            ans += self.tbl[j]
-            j -= (j & -j)
-        while i:
-            ans -= self.tbl[i]
-            i -= (i & -i)
+    def update(self, index: int, val: int) -> None:
+        n = self.l + index
+        self.tree[n] = val
+        while n > 1:
+            self.tree[n >> 1] = self.tree[n] + self.tree[n ^ 1]
+            n >>= 1
+
+    def sumRange(self, left: int, right: int) -> int:
+        m = self.l + left
+        n = self.l + right
+        ans = 0
+        while m <= n:
+            if m & 1 != 0:
+                ans += self.tree[m]
+                m += 1
+            m >>= 1
+            if n & 1 == 0:
+                ans += self.tree[n]
+                n -= 1
+            n >>= 1
         return ans
 
 # Your NumArray object will be instantiated and called as such:
-# numArray = NumArray(nums)
-# numArray.sumRange(0, 1)
-# numArray.update(1, 10)
-# numArray.sumRange(1, 2)
+# obj = NumArray(nums)
+# obj.update(index,val)
+# param_2 = obj.sumRange(left,right)
 
 if __name__ == '__main__':
     numArray = NumArray([1, 3, 5])
