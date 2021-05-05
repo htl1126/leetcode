@@ -1,24 +1,18 @@
-class Solution(object):
-    def countAndSay(self, n):
-        """
-        :type n: int
-        :rtype: str
-        """
-        n -= 1
-        ans = '1'
-        for i in xrange(n):
-            temp = ''
-            begin, end = 0, 1
-            while 1:
-                while end < len(ans) and ans[begin] == ans[end]:
-                    end += 1
-                temp += str(end - begin) + ans[begin]
-                if end >= len(ans):
-                    break
-                begin = end
-                end = begin + 1
-            ans = temp[:]
-        return ans
+class Solution:
+    def countAndSay(self, n: int) -> str:
+        s = "1"
+        for _ in range(n - 1):
+            cur, temp, count = s[0], "", 0
+            for c in s:
+                if cur == c:
+                    count += 1
+                else:
+                    temp += str(count) + cur
+                    cur = c
+                    count = 1
+            temp += str(count) + cur
+            s = temp
+        return s
 
 if __name__ == '__main__':
     sol = Solution()
