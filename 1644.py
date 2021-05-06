@@ -17,7 +17,8 @@ class Solution:
             if node.val == q.val:
                 flag |= 1
             flag |= dfs(node.left)
-            flag |= dfs(node.right)
+            if flag != 3:
+                flag |= dfs(node.right)
             if flag == 3 and not ans[0]:
                 ans[0] = node
             return flag
