@@ -10,8 +10,16 @@ class Solution(object):
         nums = n % 2 * list('018') or ['']
         while n > 1:
             n -= 2
-            nums = [a + num + b for a, b in '00 11 88 96 69'.split()[n < 2:]
-                    for num in nums]
+            t = []
+            if n >= 2:
+                for num in nums:
+                    for a, b in ['00', '11', '88', '96', '69']:
+                        t.append(a + num + b)
+            else:
+                for num in nums:
+                    for a, b in ['11', '88', '96', '69']:
+                        t.append(a + num + b)
+            nums = t
         return nums
 
 if __name__ == '__main__':
