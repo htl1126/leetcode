@@ -22,6 +22,20 @@ class Solution(object):
                 level = [n for node in level for n in (
                     node.left, node.right) if n]
 
+# Follow-up: constant extra space
+# Ref: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/discuss/37484/7-lines-iterative-real-O(1)-space
+def connect(self, root):
+    while root and root.left:
+        next = root.left
+        while root:
+            root.left.next = root.right
+            if root.next:
+                root.right.next = root.next.left
+            else:
+                root.right.next = None
+            root = root.next
+        root = next
+
 if __name__ == '__main__':
     sol = Solution()
     root = TreeLinkNode(1)
