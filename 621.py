@@ -1,3 +1,5 @@
+# Ref: https://leetcode.com/problems/task-scheduler/discuss/760266/Python-4-lines-linear-solution-detailed-explanation
+
 import collections
 
 class Solution(object):
