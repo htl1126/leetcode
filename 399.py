@@ -1,16 +1,10 @@
 import collections
 
 
-class Solution(object):
-    def calcEquation(self, equations, values, queries):
-        """
-        :type equations: List[List[str]]
-        :type values: List[float]
-        :type queries: List[List[str]]
-        :rtype: List[float]
-        """
+class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         vmap = collections.defaultdict(dict)
-        for i in xrange(len(equations)):
+        for i in range(len(equations)):
             a, b = equations[i]
             v = values[i]
             vmap[a] = collections.defaultdict(dict) if not vmap[a] else vmap[a]
@@ -18,19 +12,19 @@ class Solution(object):
             vmap[a][a], vmap[a][b], vmap[b][a], vmap[b][b] = 1.0, v, 1 / v, 1.0
         ans = []
 
-        def search(a, b, v, visited):
+        def search(a, b, visited):
             if a not in vmap and b not in vmap:
                 return -1.0
             if a == b:
-                return v
+                return 1.0
             for t in vmap[a]:
                 if t != a and t not in visited:
-                    res = search(t, b, v, visited + [t])
+                    res = search(t, b, visited + [t])
                     if res > 0:
-                        return v * vmap[a][t] * res
+                        return vmap[a][t] * res
             return -1.0
         for qa, qb in queries:
-            res = search(qa, qb, 1.0, [])
+            res = search(qa, qb, [])
             ans.append(res if res > 0 else -1.0)
         return ans
 
