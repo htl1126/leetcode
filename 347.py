@@ -1,16 +1,15 @@
-# ref: https://discuss.leetcode.com/topic/44323/1-line-python-solution-using-
-#              counter-with-explanation
+# ref: https://leetcode.com/problems/top-k-frequent-elements/discuss/740374/Python-5-lines-O(n)-buckets-solution-explained.
 import collections
 
 
-class Solution(object):
-    def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
-        return zip(*collections.Counter(nums).most_common(k))[0]
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        bucket = [[] for _ in range(len(nums) + 1)]  # for freq 0 to n
+        count = collections.Counter(nums)
+        for n, f in count.items():
+            bucket[f].append(n)
+        res = list(chain(*bucket))
+        return res[::-1][:k]
 
 if __name__ == '__main__':
     sol = Solution()
