@@ -1,16 +1,21 @@
-# ref: https://discuss.leetcode.com/topic/58365/python-zero-liner
+# Ref: https://leetcode.com/problems/random-pick-index/discuss/88153/Python-reservoir-sampling-solution.
 import random
 
 
-class Solution(object):
+class Solution:
 
-    def __init__(self, nums):
-        """
-        :type nums: List[int]
-        :type numsSize: int
-        """
-        self.pick = lambda target: random.choice(
-            [i for i, num in enumerate(nums) if num == target])
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+
+    def pick(self, target: int) -> int:
+        ans, count = None, 0
+        for i, n in enumerate(self.nums):
+            if n == target:
+                count += 1
+                chance = random.randint(1, count)
+                if chance == count:
+                    ans = i
+        return ans
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(nums)
