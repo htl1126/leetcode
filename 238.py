@@ -12,6 +12,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        # Assume we have a, b, c, d and want to get bcd, acd, abd, abc
+        # We can rewrite them as bcd, a * cd, ab * d, abc to compute
         res = [1 for _ in xrange(len(nums))]
         for i in xrange(1, len(nums)):
             res[i] = res[i - 1] * nums[i - 1]
