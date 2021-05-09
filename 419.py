@@ -7,6 +7,7 @@ class Solution(object):
         :rtype: int
         """
         ans = 0
+        # ans increments by one if we see the first piece of a vertical or a horizontal battleship
         for i in xrange(len(board)):
             for j in xrange(len(board[0])):
                 if board[i][j] == 'X' and (i == 0 or board[i - 1][j] != 'X') and (j == 0 or board[i][j - 1] != 'X'):
