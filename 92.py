@@ -1,3 +1,5 @@
+# Ref: https://leetcode.com/problems/reverse-linked-list-ii/discuss/30709/Talk-is-cheap-show-me-the-code-(and-DRAWING)
+
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, x):
@@ -5,28 +7,20 @@ class ListNode(object):
         self.next = None
 
 
-class Solution(object):
-    def reverseBetween(self, head, m, n):
-        """
-        :type head: ListNode
-        :type m: int
-        :type n: int
-        :rtype: ListNode
-        """
-        if m == n:
+class Solution:
+    def reverseBetween(self, head: ListNode, left: int, right: int) -> ListNode:
+        if left == right or not head:
             return head
-        dummy = ListNode(None)
-        dummy.next, pre, begin = head, dummy, head
-        for _ in xrange(m - 1):
-            pre, begin = pre.next, begin.next
-        end = begin
-        for _ in xrange(n - m):
-            end = end.next
-        next_end, p, q = end.next, begin, begin.next
-        for _ in xrange(n - m):
-            q.next, tmp = p, q.next
-            p, q = q, tmp
-        pre.next, begin.next = end, next_end
+        dummy = pre_m = ListNode()
+        dummy.next = head
+        for _ in range(left - 1):
+            pre_m = pre_m.next
+        tail = pre_m.next
+        for _ in range(right - left):
+            tmp = pre_m.next
+            pre_m.next = tail.next
+            tail.next = tail.next.next
+            pre_m.next.next = tmp
         return dummy.next
 
 if __name__ == '__main__':
