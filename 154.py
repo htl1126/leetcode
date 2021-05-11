@@ -1,21 +1,15 @@
-# Really similar to LC 153 with approach in LC 81
+# Ref: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48908/Clean-python-solution
 
 
-class Solution(object):
-    def findMin(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        start, end = 0, len(nums) - 1
-        while start < end and nums[end] == nums[end - 1]:
-            end -= 1
-        while start < end:
-            if nums[start] < nums[end]:
-                return nums[start]
-            mid = (start + end) / 2
-            if nums[mid] >= nums[start]:
-                start = mid + 1
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] > nums[r]:
+                l = m + 1
+            elif nums[m] == nums[r]:  # case: [3, 3, 1, 3]
+                r -= 1
             else:
-                end = mid
-        return nums[start]
+                r = m
+        return nums[l]
