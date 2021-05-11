@@ -1,22 +1,16 @@
-# ref: https://leetcode.com/discuss/13389/compact-and-clean-c-solution
+# ref: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48908/Clean-python-solution
 
 
-class Solution(object):
-    def findMin(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        start, end = 0, len(nums) - 1
-        while start < end:
-            if nums[start] < nums[end]:
-                return nums[start]
-            mid = (start + end) / 2
-            if nums[mid] >= nums[start]:
-                start = mid + 1
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            m = (l + r) // 2
+            if nums[m] > nums[r]:
+                l = m + 1
             else:
-                end = mid
-        return nums[start]
+                r = m
+        return nums[l]
 
 if __name__ == '__main__':
     sol = Solution()
