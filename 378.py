@@ -1,5 +1,5 @@
-# ref: https://discuss.leetcode.com/topic/52915/shortest-possible-solution-in
-#              -python-seriously
+# ref: https://discuss.leetcode.com/topic/52915/shortest-possible-solution-in-python-seriously
+# ref: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85219/Python-solution-O(klogk)-similar-to-problem-373
 import heapq
 
 
