@@ -16,7 +16,7 @@ class Solution(object):
         """
         to_delete_set = set(to_delete)
         ans = []
-        def helper(root, is_root):
+        def helper(root, is_root):  # is_root is True if the parent is deleted
             if not root:
                 return None
             root_deleted = root.val in to_delete_set
