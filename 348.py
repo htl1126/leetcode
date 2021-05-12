@@ -29,8 +29,8 @@ class TicTacToe(object):
         """
         for i, x in enumerate((row, col, row + col, row - col)):
             self.count[i, x, player] += 1
-        if self.count[i, x, player] == self.n:
-            return player
+            if self.count[i, x, player] == self.n:
+                return player
         return 0
 
 # Your TicTacToe object will be instantiated and called as such:
