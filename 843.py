@@ -13,19 +13,14 @@ import collections
 #        :rtype int
 #        """
 
-class Solution(object):
-    def findSecretWord(self, wordlist, master):
-        """
-        :type wordlist: List[Str]
-        :type master: Master
-        :rtype: None
-        """
-        x = 0
-        while x < 6:
-            count = collections.Counter(list(''.join(wordlist)))
-            guess = max(wordlist, key=lambda w: sum(count[c] for c in w))
-            x = master.guess(guess)
-            wordlist = [w for w in wordlist if self.match(w, guess) == x]
+class Solution:
+    def findSecretWord(self, wordlist: List[str], master: 'Master') -> None:
+        n = 0
+        while n < 6:
+            count = [collections.Counter(w[i] for w in wordlist) for i in range(6)]
+            guess = max(wordlist, key=lambda w: sum(count[i][c] for i, c in enumerate(w)))
+            n = master.guess(guess)
+            wordlist = [w for w in wordlist if self.match(w, guess) == n]
 
     def match(self, w1, w2):
         return sum(i == j for i, j in zip(w1, w2))
