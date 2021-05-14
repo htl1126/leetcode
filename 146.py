@@ -1,42 +1,52 @@
-# ref: https://leetcode.com/discuss/59091/python-concise-solution-with
-#              -comments-using-ordereddict
+# ref: https://leetcode.com/problems/lru-cache/discuss/45926/Python-Dict-%2B-Double-LinkedList
 
-import collections
+class Node:
+    def __init__(self, key=None, val=None):
+        self.key = key
+        self.val = val
+        self.next = None
+        self.prev = None
 
+class LRUCache:
 
-class LRUCache(object):
-
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
+    def __init__(self, capacity: int):
         self.dic = collections.OrderedDict()
         self.remain = capacity
+        self.head, self.tail = Node(), Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
-    def get(self, key):
-        """
-        :rtype: int
-        """
+    def get(self, key: int) -> int:
         if key not in self.dic:
             return -1
-        v = self.dic.pop(key)
-        self.dic[key] = v
-        return v
+        node = self.dic[key]
+        self.remove(node)
+        self.add(node)
+        return node.val
 
-    def set(self, key, value):
-        """
-        :type key: int
-        :type value: int
-        :rtype: nothing
-        """
+    def put(self, key: int, value: int) -> None:
         if key in self.dic:
-            self.dic.pop(key)
+            node = self.dic[key]
+            self.remove(node)
+            self.dic[key] = Node(key, value)
+            self.add(self.dic[key])
         else:
             if self.remain > 0:
                 self.remain -= 1
             else:
-                self.dic.popitem(last=False)
-        self.dic[key] = value
+                k = self.head.next.key
+                del self.dic[k]
+                self.remove(self.head.next)
+            self.dic[key] = Node(key, value)
+            self.add(self.dic[key])
+                
+    def add(self, node) -> None:
+        prev = self.tail.prev
+        prev.next, node.next, node.prev, self.tail.prev = node, self.tail, prev, node
+
+    def remove(self, node) -> None:
+        prev, next_n = node.prev, node.next
+        prev.next, next_n.prev = next_n, prev
 
 
 if __name__ == '__main__':
