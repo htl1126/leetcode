@@ -1,6 +1,6 @@
 # ref: https://leetcode.com/discuss/55662/108ms-python-solution-with
 #              -heapq-and-avoid-changing-heap-size
-
+import heapq
 
 # Definition for singly-linked list.
 class ListNode(object):
@@ -8,23 +8,20 @@ class ListNode(object):
         self.val = x
         self.next = None
 
-
+# NOTE: this code must be run with Python not Python3
 class Solution(object):
     def mergeKLists(self, lists):
         """
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        from heapq import heappop, heapreplace, heapify
         dummy = node = ListNode(None)
         h = [(n.val, n) for n in lists if n]
-        heapify(h)
+        heapq.heapify(h)
         while h:
-            val, n = h[0]
-            if n.next is None:
-                heappop(h)
-            else:
-                heapreplace(h, (n.next.val, n.next))
+            val, n = heapq.heappop(h)
+            if n.next:
+                heapq.heappush(h, (n.next.val, n.next))
             node.next = n
             node = node.next
         return dummy.next
