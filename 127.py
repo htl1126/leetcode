@@ -2,26 +2,19 @@
 #              -160ms-optimized-solution-100ms
 
 
-class Solution(object):
-    def ladderLength(self, beginWord, endWord, wordList):
-        """
-        :type beginWord: str
-        :type endWord: str
-        :type wordList: Set[str]
-        :rtype: int
-        """
+class Solution:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
         length = 2
+        size = len(beginWord)
         front = set([beginWord])
         back = set([endWord])
+        wordList = set(wordList)
         wordList.discard(beginWord)
         while front:
-            front = wordList & set(
-                '{0}{1}{2}'.format(
-                    word[:index], ch, word[index + 1:]
-                ) for word in front for index in xrange(
-                    len(beginWord)) for ch in 'abcdefghijklmnopqrstuvwxyz')
+            front = wordList & set(w[:i] + c + w[i + 1:] for w in front for i in range(size)
+                                   for c in 'abcdefghijklmnopqrstuvwxyz')
             if front & back:
                 return length
             length += 1
