@@ -1,26 +1,26 @@
-class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        m = len(s)
-        n = len(p)
-        table = [[False for _ in xrange(m + 1)] for _ in xrange(n + 1)]
-        table[0][0] = True
-        for i in xrange(1, n + 1):
-            x = p[i - 1]
-            if x == '*' and i > 1:
-                table[i][0] = table[i - 2][0]
-            for j in xrange(1, m + 1):
-                if x == '*':
-                    table[i][j] = table[i - 2][j] or table[i - 1][j] or (
-                        table[i - 1][j - 1] and p[i - 2] == s[j - 1]) or (
-                        table[i][j - 1] and p[i - 2] == '.')
-                elif x == '.' or x == s[j - 1]:
-                    table[i][j] = table[i - 1][j - 1]
-        return table[n][m]
+# Ref: https://leetcode.com/problems/regular-expression-matching/discuss/5651/Easy-DP-Java-Solution-with-detailed-Explanation
+
+
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        
+        for i in range(len(p)):
+            if p[i] == '*' and dp[0][i - 1]:
+                dp[0][i + 1] = True
+        
+        for i in range(len(s)):
+            for j in range(len(p)):
+                if s[i] == p[j] or p[j] == '.':
+                    dp[i + 1][j + 1] = dp[i][j]
+                elif p[j] == '*':
+                    if p[j - 1] != s[i] and p[j - 1] != '.':
+                        dp[i + 1][j + 1] = dp[i + 1][j - 1]
+                    else:
+                        dp[i + 1][j + 1] = dp[i + 1][j] or dp[i + 1][j - 1] or dp[i][j + 1]
+                        
+        return dp[-1][-1]
 
 if __name__ == '__main__':
     sol = Solution()
