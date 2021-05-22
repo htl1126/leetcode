@@ -18,6 +18,7 @@ class Solution:
             move(small, large)
         ans = [get_med(small, large, k)]
         for i, x in enumerate(nums[k:]):
+            # Keep 0 <= len(large) - len(small) <= 1, except lazy-deleted values
             if x >= large[0][0]:
                 heapq.heappush(large, (x, i + k))
                 if nums[i] <= large[0][0]:
@@ -26,6 +27,7 @@ class Solution:
                 heapq.heappush(small, (-x, i + k))
                 if nums[i] >= large[0][0]:
                     move(small, large)
+            # Remove lazy-deleted values
             while small and small[0][1] <= i:
                 heapq.heappop(small)
             while large and large[0][1] <= i:
