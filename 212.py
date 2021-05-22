@@ -1,35 +1,30 @@
 # ref: https://discuss.leetcode.com/topic/14307/27-lines-uses-complex-numbers
 
 
-class Solution(object):
-    def findWords(self, board, words):
-        """
-        :type board: List[List[str]]
-        :type words: List[str]
-        :rtype: List[str]
-        """
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         root = {}
         for word in words:
             node = root
             for c in word:
                 node = node.setdefault(c, {})
             node[None] = True
-        board = {i + 1j*j: c
+        board = {(i, j): c
                  for i, row in enumerate(board)
                  for j, c in enumerate(row)}
         found = []
 
-        def search(node, z, word):
+        def search(node, i, j, word):
             if node.pop(None, None):
                 found.append(word)
-            c = board.get(z)
+            c = board.get((i, j))
             if c in node:
-                board[z] = None
-                for k in xrange(4):
-                    search(node[c], z + 1j**k, word + c)
-                board[z] = c
-        for z in board:
-            search(root, z, '')
+                board[(i, j)] = None
+                for x, y in ((i - 1, j), (i, j - 1), (i, j + 1), (i + 1, j)):
+                    search(node[c], x, y, word + c)
+                board[(i, j)] = c
+        for i, j in board:
+            search(root, i, j, '')
 
         return found
 
