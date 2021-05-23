@@ -20,6 +20,7 @@ class Solution(object):
         for index, c in enumerate(S):
             if c in dic:
                 for i in dic[c][::-1]:
+                    # dp[i] is the starting index of S[:index] which contains T's first char
                     if i == 0:
                         dp[i] = index
                     else:
