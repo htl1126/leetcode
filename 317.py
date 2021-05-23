@@ -3,21 +3,16 @@
 import collections
 
 
-class Solution(object):
-    def shortestDistance(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def shortestDistance(self, grid: List[List[int]]) -> int:
         if not grid or not grid[0]:
             return -1
         row, col, buildings = len(grid), len(grid[0]), sum(
             sum(i for i in row if i == 1) for row in grid)
-        hit, distSum = [[0] * col for _ in xrange(row)], [[0] * col
-                                                          for _ in xrange(row)]
+        hit, distSum = [[0] * col for _ in range(row)], [[0] * col for _ in range(row)]
 
         def bfs(start_i, start_j):
-            visited = [[False] * col for _ in xrange(row)]
+            visited = [[False] * col for _ in range(row)]
             visited[start_i][start_j], count1, queue = (
                 True, 1, collections.deque([(start_i, start_j, 0)]))
             while queue:
@@ -32,13 +27,13 @@ class Solution(object):
                         elif grid[x][y] == 1:
                             count1 += 1
             return count1 == buildings
-        for i in xrange(row):
-            for j in xrange(col):
+        for i in range(row):
+            for j in range(col):
                 if grid[i][j] == 1:
                     if not bfs(i, j):
                         return -1
-        return min([distSum[i][j] for i in xrange(row) for j in xrange(col)
-                    if hit[i][j] == buildings and not grid[i][j]] or [-1])
+        min_distSum = [distSum[i][j] for i in range(row) for j in range(col) if hit[i][j] == buildings and not grid[i][j]]
+        return min(min_distSum) if min_distSum else -1
 
 if __name__ == '__main__':
     sol = Solution()
