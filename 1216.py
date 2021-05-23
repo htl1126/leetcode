@@ -11,7 +11,7 @@ class Solution(object):
         s_len = len(s)
         dp = [[0 for _ in xrange(s_len)] for _ in xrange(s_len)]
         for i in xrange(s_len - 1, -1, -1):
-            dp[i][i] = 1
+            dp[i][i] = 1  # s_ii is a palindrome of length 1
             for j in xrange(i + 1, s_len):
                 if s[i] == s[j]:
                     dp[i][j] = dp[i + 1][j - 1] + 2
