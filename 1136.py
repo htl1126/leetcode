@@ -13,7 +13,7 @@ class Solution:
         order = []
         max_level = -1
         while queue:
-            level, a = queue.popleft()  # must pop from left
+            level, a = queue.popleft()  # must pop from left since each item has the level info
             max_level = max(max_level, level)
             for b in suc[a]:
                 pre[b].discard(a)
