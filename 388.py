@@ -11,9 +11,9 @@ class Solution(object):
         for line in input.split('\n'):
             name = line.lstrip('\t')
             depth = len(line) - len(name)
-            if '.' in name:
+            if '.' in name:  # we get a filename and update maxlen
                 maxlen = max(maxlen, pathlen[depth] + len(name))
-            else:
+            else:  # we get a directory and update the pathlen of the current directory
                 pathlen[depth + 1] = pathlen[depth] + len(name) + 1
         return maxlen
 
