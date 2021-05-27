@@ -10,7 +10,7 @@ class Node:
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.dic = collections.OrderedDict()
+        self.dic = {}
         self.remain = capacity
         self.head, self.tail = Node(), Node()
         self.head.next = self.tail
