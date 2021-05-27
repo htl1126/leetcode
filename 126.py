@@ -3,36 +3,32 @@
 import collections
 
 
-class Solution(object):
-    def findLadders(self, beginWord, endWord, wordlist):
-        """
-        :type beginWord: str
-        :type endWord: str
-        :type wordlist: Set[str]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
         if endWord not in wordList:
             return []
         wordlist = set(wordList)
-        level = {beginWord}
-        parents = collections.defaultdict(set)
-        while level and endWord not in parents:
+        level = {beginWord: None}
+        # build a tree where the root is endWord and leaves are beginWord
+        children = collections.defaultdict(set)
+        while level and endWord not in children:
             next_level = collections.defaultdict(set)
             for node in level:
                 for char in 'abcdefghijklmnopqrstuvwxyz':
                     for i in range(len(beginWord)):
                         n = node[:i] + char + node[i + 1:]
-                        if n in wordlist and n not in parents:
+                        if n in wordlist and n not in children:
                             next_level[n].add(node)
             level = next_level
-            parents.update(next_level)
+            children.update(next_level)
         res = [[endWord]]
+        # construct solutions from root to leaves
         while res and res[0][0] != beginWord:
             t = []
             for r in res:
-                for p in parents[r[0]]:
+                for p in children[r[0]]:
                     t.append([p] + r)
-            res = t
+            res = t  # t will be empty if the tree is incomplete
         return res
 
 if __name__ == '__main__':
