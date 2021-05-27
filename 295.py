@@ -18,6 +18,9 @@ class MedianFinder:
         """
         small, large = self.heaps
         heappush(small, -heappushpop(large, num))
+        # Every time we push and pop items from large to small, so need to make sure
+        # small won't get too big. If we push and pop from small to large, we need to
+        # do this reversely.
         if len(large) < len(small):
             heappush(large, -heappop(small))
 
