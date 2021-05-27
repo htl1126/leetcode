@@ -1,15 +1,9 @@
 # ref: https://discuss.leetcode.com/topic/13991/short-and-simple
 
 
-class Solution(object):
-    def findOrder(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: List[int]
-        """
-        from collections import *
-        pre, suc = defaultdict(int), defaultdict(list)
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        pre, suc = collections.defaultdict(int), collections.defaultdict(list)
         for a, b in prerequisites:
             pre[a] += 1
             suc[b].append(a)
@@ -20,7 +14,8 @@ class Solution(object):
             out.append(a)
             for b in suc[a]:
                 pre[b] -= 1
-                pre[b] or free.add(b)
+                if not pre[b]:
+                    free.add(b)
         return out * (len(out) == numCourses)
 
 if __name__ == '__main__':
