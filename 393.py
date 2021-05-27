@@ -1,9 +1,9 @@
 class Solution:
     def validUtf8(self, data: List[int]) -> bool:
-        num_byte_mask = {1: 1 << 1}
+        num_byte_mask = {}
         size = len(data)
-        for i in range(2, 5):
-            num_byte_mask[i] = (num_byte_mask[i - 1] | 1) << 1
+        for i in range(1, 5):  # generate masks: 00000010, 00000110
+            num_byte_mask[i] = (1 << (i + 1)) - 2
         i = 0
         while i < size:
             if data[i] >> 7 == 0:
