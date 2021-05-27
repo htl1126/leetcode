@@ -1,28 +1,25 @@
+# Ref: https://leetcode.com/problems/utf-8-validation/discuss/87494/Short'n'Clean-12-lines-Python-solution
+
 class Solution:
     def validUtf8(self, data: List[int]) -> bool:
-        num_byte_mask = {}
-        size = len(data)
-        for i in range(1, 5):  # generate masks: 00000010, 00000110
-            num_byte_mask[i] = (1 << (i + 1)) - 2
+        def check(nums, start, size):
+            for i in range(start + 1, start + size + 1):
+                if i >= len(nums) or nums[i] >> 6 != 1 << 1:
+                    return False
+            return True
         i = 0
-        while i < size:
-            if data[i] >> 7 == 0:
+        while i < len(data):
+            first = data[i]
+            if first >> 7 == 0:
                 i += 1
+            elif first >> 5 == (1 << 3) - 2 and check(data, i, 1):
+                i += 2
+            elif first >> 4 == (1 << 4) - 2 and check(data, i, 2):
+                i += 3
+            elif first >> 3 == (1 << 5) - 2 and check(data, i, 3):
+                i += 4
             else:
-                if data[i] >> 6 == num_byte_mask[1]:
-                    return False
-                j = 2
-                max_utf8_size = min(4, size - i)
-                while j <= max_utf8_size:
-                    if num_byte_mask[j] == (data[i] >> (7 - j)):
-                        break
-                    j += 1
-                if j > max_utf8_size:
-                    return False
-                for k in range(i + 1, i + j):
-                    if (data[k] >> 6) & 2 != 2:
-                        return False
-                i += j
+                return False
         return True
 
 if __name__ == '__main__':
