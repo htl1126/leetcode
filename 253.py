@@ -3,29 +3,18 @@ import heapq
 #              comments
 
 
-# Definition for an interval.
-class Interval(object):
-    def __init__(self, s=0, e=0):
-        self.start = s
-        self.end = e
-
-
-class Solution(object):
-    def minMeetingRooms(self, intervals):
-        """
-        :type intervals: List[Interval]
-        :rtype: int
-        """
-        intervals.sort(key=lambda x: x.start)
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[0])
         heap = []
         for i in intervals:
-            if heap and i.start >= heap[0]:  # cancel the first room finished using
-                heapq.heapreplace(heap, i.end)
+            if heap and i[0] >= heap[0]:  # cancel the first room finished using
+                heapq.heappop(heap)
+                heapq.heappush(heap, i[1])
             else:
-                heapq.heappush(heap, i.end)
+                heapq.heappush(heap, i[1])
         return len(heap)
 
 if __name__ == '__main__':
     sol = Solution()
-    print sol.minMeetingRooms([Interval(0, 30), Interval(5, 10),
-                               Interval(15, 20)])
+    print sol.minMeetingRooms([[0, 30], [5, 10], [15, 20]])
