@@ -5,6 +5,7 @@ class RangeModule:
     def __init__(self):
         self.X = [0, 10 ** 9]  # the numbers on the real number line
         self.track = [False, False]  # True: points are not taken; False: points are taken (discontinuous points)
+                                     # If we have track[i] == False, [X[i], X[i + 1]) is NOT tracked.
 
     def addRange(self, left: int, right: int, track=True) -> None:
         def index(x):
