@@ -1,25 +1,21 @@
-# ref: https://discuss.leetcode.com/topic/67539/0-1-knapsack-detailed-explanation
+# ref: https://leetcode.com/problems/partition-equal-subset-sum/discuss/276278/Python-DP-and-(DFS%2BMemo)
 
 
-class Solution(object):
-    def canPartition(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        if sum(nums) % 2 == 1:
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        s, n, memo = sum(nums), len(nums), {0: True}
+        if s & 1:
             return False
-        nums.sort()
-        dp = [1] + [0] * sum(nums)
-        pre_dp = [1] + [0] * sum(nums)
-        curr_sum = 0
-        for num in nums:
-            curr_sum += num
-            for i in xrange(1, curr_sum + 1):
-                if i >= num:
-                    dp[i] |= pre_dp[i - num]
-            pre_dp = dp[:]
-        return dp[curr_sum /  2] == 1
+        nums.sort(reverse=True)
+        def dfs(i, x):
+            if x not in memo:
+                memo[x] = False
+                for j in range(i, n):
+                    if x >= nums[j] and dfs(j + 1, x - nums[j]):
+                        memo[x] = True
+                        break
+            return memo[x]
+        return dfs(0, s >> 1)
 
 if __name__ == '__main__':
     sol = Solution()
