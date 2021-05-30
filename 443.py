@@ -1,25 +1,20 @@
-class Solution(object):
-    def compress(self, chars):
-        """
-        :type chars: List[str]
-        :rtype: int
-        """
-        seg_start, ans = 0, 0
-        for i in xrange(len(chars)):
-            if chars[seg_start] != chars[i]:
-                seg_len = i - seg_start
-                chars[ans] = chars[seg_start]
-                if seg_len > 1:
-                    chars[ans + 1:ans + len(str(seg_len)) + 1] = list(str(seg_len))
-                ans += 1 + (len(str(seg_len)) if seg_len > 1 else 0)
-                seg_start = i
-        seg_len = len(chars) - seg_start
-        chars[ans] = chars[seg_start]
-        if seg_len > 1:
-            chars[ans + 1:ans + len(str(seg_len)) + 1] = list(str(seg_len))
-        ans += 1 + (len(str(seg_len)) if seg_len > 1 else 0)
-        chars = chars[:ans]
-        return ans
+# Ref: https://leetcode.com/problems/string-compression/discuss/92568/Python-Two-Pointers-O(n)-time-O(1)-space
+
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        res = i = 0
+        size = len(chars)
+        while i < size:
+            c, length = chars[i], 1
+            while (i + 1) < size and c == chars[i + 1]:
+                i, length = i + 1, length + 1
+            chars[res] = c
+            if length > 1:
+                len_str = str(length)
+                chars[res + 1:res + 1 + len(len_str)] = len_str
+                res += len(len_str)
+            res, i = res + 1, i + 1
+        return res
 
 if __name__ == "__main__":
     sol = Solution()
