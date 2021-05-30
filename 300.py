@@ -16,6 +16,7 @@ class Solution(object):
         tails = [0 for _ in xrange(len(nums))]
         size = 0
         for x in nums:
+            # equivalent to bisect.bisect_left()
             i, j = 0, size
             while i != j:
                 m = (i + j) / 2
