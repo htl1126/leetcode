@@ -14,6 +14,10 @@ class Solution(object):
             for j in xrange(col):
                 if matrix[i][j] == 0:
                     matrix[i][0] = matrix[0][j] = 0
+        # visit j reversedly for this case
+        # [[0,1,2,0],
+        #  [3,4,5,2],
+        #  [1,3,1,5]]
         for i in xrange(1, row):
             for j in xrange(col - 1, -1, -1):
                 if matrix[i][0] == 0 or matrix[0][j] == 0:
