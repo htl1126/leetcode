@@ -2,21 +2,17 @@
 
 import collections
 
-class Solution(object):
-    def findTargetSumWays(self, nums, S):
-        """
-        :type nums: List[int]
-        :type S: int
-        :rtype: int
-        """
-        count = collections.Counter({0: 1})
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        count = collections.defaultdict(int)
+        count[0] = 1
         for x in nums:
-            step = collections.Counter()
+            step = collections.defaultdict(int)
             for y in count:
                 step[y + x] += count[y]
                 step[y - x] += count[y]
             count = step
-        return count[S]
+        return count[target]
 
 if __name__ == "__main__":
     sol = Solution()
