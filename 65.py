@@ -1,23 +1,23 @@
-class Solution(object):
-    def isNumber(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        def check_int(num):
-            return num and all(c.isdigit() for c in set(num))
+# Ref: https://leetcode.com/problems/valid-number/discuss/173977/Python-with-simple-explanation
 
-        def check_float(num):
-            return num.count('.') == 1 and len(num) > 1 and \
-                all(check_int(part) for part in num.split('.') if part)
+class Solution:
+    def isNumber(self, s: str) -> bool:
         s = s.strip()
-        if any(c.isalpha() and c != 'e' for c in set(s)):
-            return False
-        parts = s.split('e')
-        if len(parts) > 2 or '' in parts:
-            return False
-        parts = map(lambda x: x[x[0] in '+-':], parts)
-        if (check_float(parts[0]) or check_int(parts[0])) and \
-                (len(parts) == 1 or len(parts) == 2 and check_int(parts[1])):
-            return True
-        return False
+        seen_dot = seen_e = seen_digit = False
+        for i, c in enumerate(s):
+            if c in ['+', '-']:
+                if i > 0 and s[i - 1] not in ['e', 'E']:
+                    return False
+            elif c == '.':
+                if seen_dot or seen_e:
+                    return False
+                seen_dot = True
+            elif c in ['e', 'E']:
+                if seen_e or not seen_digit:
+                    return False
+                seen_e, seen_digit = True, False
+            elif c.isdigit():
+                seen_digit = True
+            else:
+                return False
+        return seen_digit
