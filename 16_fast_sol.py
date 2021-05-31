@@ -1,37 +1,30 @@
 # source: https://leetcode.com/discuss/70274/56-ms-python-solution
 
-class Solution(object):
-    def threeSumClosest(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
         nums.sort()
-        # Check cases where target exceeds lowest and highest possible sums
         summ = sum(nums[-3:])
         if target >= summ: return summ
-        closest = sum(nums[:3]) #initialize closest
+        closest = sum(nums[:3])
         if target <= closest: return closest
 
-        # Keep track of closest difference
         diff = abs(closest - target)
 
-        # Iterate with restriction that first number index < second number index < third number index
-        # Iterate leftmost number
-        for i in xrange(len(nums) - 2):
-
-            # Index of smallest possibility for second number: target - first num - greatest possible num
-            left = bisect.bisect_left(nums, target - nums[i] - nums[-1], lo = i + 1) #binary search
-            if left > i + 1: left -= 1 #Start checking the number just below
-
-            # Iterate second number
-            for j in xrange(left, len(nums) - 1):
-                # Find the values closest to the number that would hit target
+        for i in range(len(nums) - 2):
+            # Look for the second number:
+            # From index i + 1, find the smallest number nums[left] such that
+            # nums[left] >= target - nums[i] - nums[-1]
+            left = bisect.bisect_left(nums, target - nums[i] - nums[-1], lo=i + 1)
+            # We can try nums[left - 1] if left > i + 1
+            if left > i + 1:
+                left -= 1
+            for j in range(left, len(nums) - 1):
                 num2find = target - nums[i] - nums[j]
-                ind = bisect.bisect_left(nums, num2find, j + 1) #binary search
-
-                # Check value just below and num
+                # Look for the third number:
+                # From index j + 1, find the smallest number nums[ind] such that
+                # nums[ind] >= target - nums[i] - nums[j]
+                ind = bisect.bisect_left(nums, num2find, lo=j + 1)
+                # We try both nums[ind - 1] and nums[ind]
                 values = [ind - 1, ind]
                 for val in values:
                     if val > j and val < len(nums):
@@ -41,6 +34,7 @@ class Solution(object):
                         if abs(summ - target) < diff:
                             closest = summ
                             diff = abs(summ - target)
-                # Don't bother iterating through second number anymore after target is exceeded
-                if nums[i] + nums[j] + nums[j + 1] > target: break
+                # current j is the largest index for the second number
+                if nums[i] + nums[j] + nums[j + 1] > target:
+                    break
         return closest
