@@ -9,27 +9,23 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
-class Solution(object):
-    def verticalTraversal(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        g = collections.defaultdict(list)
+class Solution:
+    def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+        res = collections.defaultdict(list)
         queue = [(root, 0)]
         while queue:
-            d = collections.defaultdict(list)
+            cur_level = collections.defaultdict(list)
             new = []
             for node, i in queue:
-                d[i].append(node.val)
+                cur_level[i].append(node.val)
                 if node.left:
                     new.append((node.left, i - 1))
                 if node.right:
                     new.append((node.right, i + 1))
-            for i in d:
-                g[i] += sorted(d[i])
+            for i in cur_level:
+                res[i] += sorted(cur_level[i])
             queue = new
-        return [g[i] for i in sorted(g)]
+        return [res[i] for i in sorted(res)]
 
 if __name__ == "__main__":
     sol = Solution()
