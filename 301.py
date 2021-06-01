@@ -1,12 +1,8 @@
 # ref: https://discuss.leetcode.com/topic/28833/short-python-bfs
 
 
-class Solution(object):
-    def removeInvalidParentheses(self, s):
-        """
-        :type s: str
-        :rtype: List[str]
-        """
+class Solution:
+    def removeInvalidParentheses(self, s: str) -> List[str]:
         def isvalid(s):
             ctr = 0
             for c in s:
@@ -18,11 +14,11 @@ class Solution(object):
                         return False
             return ctr == 0
         level = {s}
-        while level:
-            valid = filter(isvalid, level)
+        while True:
+            valid = list(filter(isvalid, level))
             if valid:
                 return valid
-            level = {s[:i] + s[i + 1:] for s in level for i in xrange(len(s))}
+            level = {s[:i] + s[i+1:] for s in level for i in range(len(s))}
 
 if __name__ == '__main__':
     sol = Solution()
