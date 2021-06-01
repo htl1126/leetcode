@@ -1,16 +1,12 @@
 # Ref: https://leetcode.com/problems/longest-arithmetic-sequence/discuss/274611/JavaC%2B%2BPython-DP
 # Algo: dynamic programming
 
-class Solution(object):
-    def longestArithSeqLength(self, A):
-        """
-        :type A: List[int]
-        :rtype: int
-        """
+class Solution:
+    def longestArithSeqLength(self, A: List[int]) -> int:
         dp = {}
-        for i in xrange(len(A)):
-            for j in xrange(i + 1, len(A)):
-                dp[j, A[j] - A[i]] = dp.get((i, A[j] - A[i]), 1) + 1
+        for i in range(len(A)):
+            for j in range(i):
+                dp[i, A[i] - A[j]] = dp.setdefault((j, A[i] - A[j]), 1) + 1
         return max(dp.values())
 
 if __name__ == "__main__":
