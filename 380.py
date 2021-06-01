@@ -25,10 +25,9 @@ class RandomizedSet:
         Removes a value from the set. Returns true if the set contained the specified element.
         """
         if val in self.idx:
-            if self.idx[val] != self.num_elem - 1:
-                insert_val = self.vals[-1]
-                idx = self.idx[val]
-                self.vals[idx], self.idx[insert_val] = insert_val, idx
+            insert_val = self.vals[-1]
+            idx = self.idx[val]
+            self.vals[idx], self.idx[insert_val] = insert_val, idx
             self.num_elem -= 1
             self.vals.pop()  # pop at the end is O(1)
             self.idx.pop(val)
