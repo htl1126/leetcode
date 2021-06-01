@@ -6,18 +6,17 @@ class RandomizedSet:
         """
         Initialize your data structure here.
         """
-        self.d_direct = {}
-        self.d_invert = {}
+        self.vals, self.idx = [], {}
         self.num_elem = 0
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the set. Returns true if the set did not already contain the specified element.
         """
-        if val in self.d_invert:
+        if val in self.idx:
             return False
-        self.d_direct[self.num_elem] = val
-        self.d_invert[val] = self.num_elem
+        self.vals.append(val)
+        self.idx[val] = self.num_elem
         self.num_elem += 1
         return True
 
@@ -25,22 +24,22 @@ class RandomizedSet:
         """
         Removes a value from the set. Returns true if the set contained the specified element.
         """
-        if val not in self.d_invert:
-            return False
-        ind = self.d_invert.pop(val)
-        self.d_direct.pop(ind)
-        if ind != self.num_elem - 1:
-            self.d_direct[ind] = self.d_direct[self.num_elem - 1]
-            self.d_invert[self.d_direct[self.num_elem - 1]] = ind
-            self.d_direct.pop(self.num_elem - 1)
-        self.num_elem -= 1
-        return True
+        if val in self.idx:
+            if self.idx[val] != self.num_elem - 1:
+                insert_val = self.vals[-1]
+                idx = self.idx[val]
+                self.vals[idx], self.idx[insert_val] = insert_val, idx
+            self.num_elem -= 1
+            self.vals.pop()  # pop at the end is O(1)
+            self.idx.pop(val)
+            return True
+        return False
 
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        return self.d_direct[random.randint(0, self.num_elem - 1)]
+        return random.choice(self.vals)
 
 
 # Your RandomizedSet object will be instantiated and called as such:
