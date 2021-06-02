@@ -33,6 +33,7 @@ class Solution:
                     if not bfs(i, j):
                         return -1
         min_distSum = [distSum[i][j] for i in range(row) for j in range(col) if hit[i][j] == buildings and not grid[i][j]]
+        # Case [[1]] will lead to min_distSum = []
         return min(min_distSum) if min_distSum else -1
 
 if __name__ == '__main__':
