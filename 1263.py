@@ -40,5 +40,5 @@ class Solution:
                 if new_b in non_obstacle and (bi, bj) + new_b not in seen:
                     if new_p in non_obstacle and check((pi, pj), new_p, (bi, bj)):
                         seen.add((bi, bj) + new_b)
-                        q.append((m + 1, bi, bj, new_b[0], new_b[1]))
+                        q.append((m + 1, bi, bj, *new_b))
         return -1
