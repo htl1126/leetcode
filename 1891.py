@@ -6,7 +6,7 @@ class Solution:
             return 0
         l, r = 1, max(ribbons)
         while l < r:
-            m = (l + r + 1) // 2
+            m = (l + r + 1) // 2  # ceil((l + r) // 2) = (l + r + 1) // 2
             pieces = sum(i // m for i in ribbons)
             if pieces < k:
                 r = m - 1
