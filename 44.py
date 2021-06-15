@@ -1,26 +1,23 @@
-# ref: https://discuss.leetcode.com/topic/9350/python-dp-solution
+# ref: https://leetcode.com/problems/wildcard-matching/discuss/256025/Python-DP-with-illustration
 
 
-class Solution(object):
-    def isMatch(self, s, p):
-        """
-        :type s: str
-        :type p: str
-        :rtype: bool
-        """
-        length = len(s)
-        if len(p) - p.count('*') > length:
-            return False
-        table = [True] + [False for _ in xrange(length)]
-        for i in p:
-            if i != '*':
-                for n in xrange(length - 1, -1, -1):
-                    table[n + 1] = table[n] and (i == s[n] or i == '?')
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
+        dp[0][0] = True
+        for j in range(len(p)):
+            if p[j] == '*':
+                dp[0][j + 1] = True
             else:
-                for n in xrange(1, length + 1):
-                    table[n] = table[n] or table[n - 1]
-            table[0] = table[0] and i == '*'
-        return table[-1]
+                break
+
+        for i in range(len(s)):
+            for j in range(len(p)):
+                if p[j] in {s[i], '?'}:
+                    dp[i + 1][j + 1] = dp[i][j]
+                elif p[j] == '*':
+                    dp[i + 1][j + 1] = dp[i][j + 1] or dp[i + 1][j]  # '*' is for multiple chars or an empty string
+        return dp[-1][-1]
 
 if __name__ == '__main__':
     sol = Solution()
