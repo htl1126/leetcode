@@ -1,18 +1,14 @@
-# ref: https://discuss.leetcode.com/topic/19931/6-line-java-solution-in-o-n
+# Ref: https://leetcode.com/problems/jump-game/discuss/20907/1-6-lines-O(n)-time-O(1)-space
 
-
-class Solution(object):
-    def canJump(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        reachable = 0
-        for i in xrange(len(nums)):
-            if i > reachable:
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        max_reach, size = 0, len(nums) - 1
+        for i in range(len(nums)):
+            if max_reach < i:
                 return False
-            reachable = max(reachable, i + nums[i])
-        return True
+            if max_reach >= size:
+                return True
+            max_reach = max(max_reach, i + nums[i])
 
 if __name__ == '__main__':
     sol = Solution()
