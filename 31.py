@@ -16,7 +16,7 @@ class Solution(object):
         while l < r:
             nums[l], nums[r] = nums[r], nums[l]
             l += 1
-            r -= 1        
+            r -= 1
 
 if __name__ == "__main__":
     sol = Solution()
