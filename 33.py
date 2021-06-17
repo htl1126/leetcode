@@ -1,26 +1,21 @@
 # ref: https://discuss.leetcode.com/topic/34491/clever-idea-making-it-simple
 
 
-class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums) - 1
         while left <= right:
-            mid = (left + right) / 2
+            mid = (left + right) // 2
             if (nums[mid] >= nums[0]) == (target >= nums[0]):
                 num = nums[mid]
             else:
-                if target < nums[0]:  # must be '<' not '<='
-                    num = - float('inf')
-                else:
+                if target >= nums[0]:  # must be '<' not '<='
                     num = float('inf')
-            if num < target:
+                else:
+                    num = -float('inf')
+            if target > num:
                 left = mid + 1
-            elif num > target:
+            elif target < num:
                 right = mid - 1
             else:
                 return mid
