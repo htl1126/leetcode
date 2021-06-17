@@ -1,4 +1,4 @@
-# Ref: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14707/9-11-lines-O(log-n)
+# Ref: https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14707/9-11-lines-O(log-n)
 
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
@@ -12,6 +12,7 @@ class Solution:
                     r = m
             return l
         left = search(target)
+        # case nums = [1, 2, 2, 3], target = 4 will lead to nums[left:left + 1] == []
         return [left, search(target + 1) - 1] if target in nums[left:left + 1] else [-1, -1]
 
 if __name__ == '__main__':
