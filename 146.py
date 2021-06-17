@@ -28,8 +28,8 @@ class LRUCache:
         if key in self.dic:
             node = self.dic[key]
             self.remove(node)
-            self.dic[key] = Node(key, value)
-            self.add(self.dic[key])
+            self.dic[key].val = value
+            self.add(node)
         else:
             if self.remain > 0:
                 self.remain -= 1
