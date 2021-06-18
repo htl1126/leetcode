@@ -2,33 +2,23 @@
 #              -recursive-version-dfs
 
 
-class WordDictionary(object):
+class WordDictionary:
+
     def __init__(self):
         """
-        initialize your data structure here.
+        Initialize your data structure here.
         """
         self.dic = {}
 
-    def addWord(self, word):
-        """
-        Adds a word into the data structure.
-        :type word: str
-        :rtype: void
-        """
+    def addWord(self, word: str) -> None:
         node = self.dic
         for c in word:
             node = node.setdefault(c, {})
         node['end'] = True
 
-    def search(self, word):
-        """
-        Returns if the word is in the data structure. A word could
-        contain the dot character '.' to represent any one letter.
-        :type word: str
-        :rtype: bool
-         """
+    def search(self, word: str) -> bool:
         return self.searchWord(self.dic, word)
-
+    
     def searchWord(self, node, word):
         if word == '':
             return 'end' in node
@@ -36,12 +26,11 @@ class WordDictionary(object):
             for c in node:
                 if c != 'end' and self.searchWord(node[c], word[1:]):
                     return True
-            return False
         else:
             if word[0] in node:
                 return self.searchWord(node[word[0]], word[1:])
-            else:
-                return False
+        return False
+
 
 # Your WordDictionary object will be instantiated and called as such:
 # wordDictionary = WordDictionary()
