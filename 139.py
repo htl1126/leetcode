@@ -4,8 +4,6 @@
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        if len(s) == 0:
-            return True
         dp = [False] * len(s)
         for i in range(len(s)):
             for w in wordDict:
