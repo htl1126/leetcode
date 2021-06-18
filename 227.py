@@ -1,29 +1,25 @@
 # Ref: https://leetcode.com/problems/basic-calculator-ii/discuss/63076/Python-short-solution-with-stack.
 
-class Solution(object):
-    def calculate(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+class Solution:
+    def calculate(self, s: str) -> int:
         s += "+0"
-        preOp, num, stack = "+", 0, []
+        preOp, num, stack = '+', 0, []
         for c in s:
             if c.isdigit():
                 num = num * 10 + int(c)
             elif c in "+-*/":
-                if preOp == "+":
+                if preOp == '+':
                     stack.append(num)
-                elif preOp == "-":
+                elif preOp == '-':
                     stack.append(-num)
-                elif preOp == "*":
+                elif preOp == '*':
                     stack.append(stack.pop() * num)
-                elif preOp == "/":
+                elif preOp == '/':
                     n = stack.pop()
                     if n < 0:
-                        stack.append(-(-n / num))
+                        stack.append(-(-n // num))  # (-9) // 7 != -(9 // 7)
                     else:
-                        stack.append(n / num)
+                        stack.append(n // num)
                 preOp, num = c, 0
         return sum(stack)
 
