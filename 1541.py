@@ -2,6 +2,8 @@
 
 class Solution:
     def minInsertions(self, s: str) -> int:
+        # added: actually added right parentheses
+        # right_need: additionally needed right parentheses
         added = right_need = 0
         for c in s:
             if c == '(':
