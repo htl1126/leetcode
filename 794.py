@@ -14,6 +14,7 @@ class Solution:
                 has_line[piece][0] = True
             if all(bd[i][2 - i] == piece for i in range(3)):
                 has_line[piece][0] = True
+            # Having more than one horizontal/vertical lines for one player is not valid
             for i in range(3):
                 if all(bd[i][j] == piece for j in range(3)):
                     if has_line[piece][1]:
