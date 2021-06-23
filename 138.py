@@ -12,18 +12,18 @@ class RandomListNode(object):
         self.random = None
 
 
-class Solution(object):
-    def copyRandomList(self, head):
-        """
-        :type head: RandomListNode
-        :rtype: RandomListNode
-        """
-        dic = collections.defaultdict(lambda: RandomListNode(0))
-        dic[None] = None
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        dic = {None: None}
         n = head
         while n:
-            dic[n].label = n.label
+            if n not in dic:
+                dic[n] = Node(n.val)
+            if n.next not in dic:
+                dic[n.next] = Node(n.next.val)
             dic[n].next = dic[n.next]
+            if n.random not in dic:
+                dic[n.random] = Node(n.random.val)
             dic[n].random = dic[n.random]
             n = n.next
         return dic[head]
