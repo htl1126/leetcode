@@ -11,9 +11,9 @@ class Solution(object):
         for n in nums:
             if n <= first:
                 first = n
-            elif n <= second:
+            elif n <= second:  # n > first and n <= second
                 second = n
-            else:
+            else:              # n > first and n > second
                 return True
         return False
 
