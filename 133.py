@@ -10,17 +10,17 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        if not node:
-            return None
-        mapping = {}
+        dic = {None: None}
         def dfs(node):
-            mapping[node] = Node(node.val)
-            for n in node.neighbors:
-                if n not in mapping:
-                    dfs(n)
-                mapping[node].neighbors.append(mapping[n])
+            if node:
+                if node not in dic:
+                    dic[node] = Node(node.val)
+                for n in node.neighbors:
+                    if n not in dic:
+                        dfs(n)
+                    dic[node].neighbors.append(dic[n])
         dfs(node)
-        return mapping[node]
+        return dic[node]
 
 
 if __name__ == '__main__':
