@@ -27,9 +27,11 @@ class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
         nums.sort()
         summ = sum(nums[-3:])
-        if target >= summ: return summ
+        if target >= summ:
+            return summ
         closest = sum(nums[:3])
-        if target <= closest: return closest
+        if target <= closest:
+            return closest
 
         diff = abs(closest - target)
 
