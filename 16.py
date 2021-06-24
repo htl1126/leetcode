@@ -49,8 +49,11 @@ class Solution:
                 # From index j + 1, find the smallest number nums[ind] such that
                 # nums[ind] >= target - nums[i] - nums[j]
                 ind = bisect.bisect_left(nums, num2find, lo=j + 1)
-                # We try both nums[ind - 1] and nums[ind]
-                values = [ind - 1, ind]
+                # We can try nums[ind - 1] if ind > j + 1
+                if ind > j + 1:
+                    values = [ind - 1, ind]
+                else:
+                    values = [ind]
                 for val in values:
                     if val > j and val < len(nums):
                         summ = nums[i] + nums[j] + nums[val]
