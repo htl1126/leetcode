@@ -2,19 +2,15 @@
 #              -python-1-liners/2
 
 
-class Solution(object):
-    def searchMatrix(self, matrix, target):
-        """
-        :type matrix: List[List[int]]
-        :type target: int
-        :rtype: bool
-        """
-        j = -1
-        for row in matrix:
-            while j + len(row) and row[j] > target:
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        m, n = len(matrix), len(matrix[0])
+        j = n - 1
+        for i in range(m):
+            while j >= 0 and target <= matrix[i][j]:
+                if target == matrix[i][j]:
+                    return True
                 j -= 1
-            if row[j] == target:
-                return True
         return False
 
 if __name__ == '__main__':
