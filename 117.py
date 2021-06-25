@@ -38,8 +38,8 @@ class Solution:
                     tmp = tmp.next
                 root = root.next
             root = dummy.next  # make the left most node at next level the new root
-            tmp = dummy
-            dummy.next = None  # reset "dummy" and "tmp" as pure dummy nodes
+            tmp = dummy        # make "tmp" and "dummy" the same node
+            dummy.next = None
         return res
 
 if __name__ == '__main__':
