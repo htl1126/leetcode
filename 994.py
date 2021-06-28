@@ -1,33 +1,18 @@
-# Ref: https://leetcode.com/problems/rotting-oranges/discuss/238540/python-simple-bfs-solution
-# Algo: BFS
-class Solution(object):
-    def orangesRotting(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        def createSet(grid, targetVal):
-            result = set()
-            for x in xrange(len(grid)):
-                for y in xrange(len(grid[0])):
-                    if grid[x][y] == targetVal:
-                        result.add((x, y))
-            return result
+# Ref: https://leetcode.com/problems/rotting-oranges/discuss/388104/Python-10-lines-BFS-beat-97
 
-        rotten = createSet(grid, 2)
-        fresh = createSet(grid, 1)
-        time = 0
-        while len(fresh):
-            turned = set()
-            for x, y in fresh:
-                if (x - 1, y) in rotten or (x, y - 1) in rotten or (x, y + 1) in rotten or (x + 1, y) in rotten:
-                    turned.add((x, y))
-            if len(turned) == 0:
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        row, col = len(grid), len(grid[0])
+        rotting = {(i, j) for i in range(row) for j in range(col) if grid[i][j] == 2}
+        fresh = {(i, j) for i in range(row) for j in range(col) if grid[i][j] == 1}
+        t = 0
+        while fresh:
+            if not rotting:
                 return -1
-            fresh.difference_update(turned)
-            rotten.update(turned)
-            time += 1
-        return time
+            rotting = {(i + di, j + dj) for i, j in rotting for di, dj in [(0, 1), (1, 0), (0, -1), (-1, 0)] if (i + di, j + dj) in fresh}
+            fresh -= rotting
+            t += 1
+        return t
 
 if __name__ == "__main__":
     sol = Solution()
