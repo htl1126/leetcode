@@ -9,8 +9,9 @@ class Solution:
         while fresh:
             if not rotting:
                 return -1
-            rotting = {(i + di, j + dj) for i, j in rotting for di, dj in [(0, 1), (1, 0), (0, -1), (-1, 0)] if (i + di, j + dj) in fresh}
-            fresh -= rotting
+            new_rotting = {(i + di, j + dj) for i, j in rotting for di, dj in [(0, 1), (1, 0), (0, -1), (-1, 0)] if (i + di, j + dj) in fresh}
+            fresh -= new_rotting
+            rotting = new_rotting
             t += 1
         return t
 
