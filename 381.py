@@ -9,7 +9,8 @@ class RandomizedCollection(object):
         """
         Initialize your data structure here.
         """
-        self.vals, self.idxs = [], collections.defaultdict(set)
+        self.vals, self.idxs, self.set_size = [], collections.defaultdict(set), collections.defaultdict(int)
+        self.num_elem = 0
 
     def insert(self, val):
         """
@@ -18,8 +19,10 @@ class RandomizedCollection(object):
         :rtype: bool
         """
         self.vals.append(val)
-        self.idxs[val].add(len(self.vals) - 1)
-        return len(self.idxs[val]) == 1
+        self.idxs[val].add(self.num_elem)
+        self.set_size[val] += 1
+        self.num_elem += 1
+        return self.set_size[val] == 1
 
     def remove(self, val):
         """
@@ -28,11 +31,13 @@ class RandomizedCollection(object):
         :rtype: bool
         """
         if self.idxs[val]:
-            out, ins = self.idxs[val].pop(), self.vals[-1]
-            self.vals[out] = ins
-            self.idxs[ins].add(out)
-            self.idxs[ins].discard(len(self.vals) - 1)
+            idx, last_val = self.idxs[val].pop(), self.vals[-1]
+            self.set_size[val] -= 1
+            self.vals[idx] = last_val
+            self.idxs[last_val].add(idx)
+            self.idxs[last_val].discard(self.num_elem - 1)
             self.vals.pop()
+            self.num_elem -= 1
             return True
         return False
 
