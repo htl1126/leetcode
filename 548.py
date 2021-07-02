@@ -7,8 +7,10 @@ class Solution:
         # s[n] = nums[0] + nums[1] + ... + nums[n - 1]
         for i in range(n):
             s[i + 1] = s[i] + nums[i]
+        # check() gets all the equal splits
         def check(l, r):
             # s[m] - s[l] = nums[l] + nums[l + 1] + ... + nums[m - 1]
             # s[r + 1] - s[m + 1] = nums[m + 1] + nums[m + 2] + ... + nums[r]
             return set(s[m] - s[l] for m in range(l + 1, r) if s[m] - s[l] == s[r + 1] - s[m + 1])
+        # check whether check(0, j - 1) and check(j + 1, n - 1) have the same splits
         return any(check(0, j - 1) & check(j + 1, n - 1) for j in range(n))
