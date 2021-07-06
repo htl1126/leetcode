@@ -4,13 +4,8 @@ class ListNode(object):
         self.val = x
         self.next = None
 
-class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         l1_len, l2_len = self.getLen(l1), self.getLen(l2)
         if l1_len < l2_len:
             l1_len, l2_len = l2_len, l1_len
@@ -25,8 +20,7 @@ class Solution(object):
     def getLen(self, l):
         if l:
             return 1 + self.getLen(l.next)
-        else:
-            return 0
+        return 0
 
     def getSum(self, l1, l2, cur, size_diff):
         if l1 == None or l2 == None:
@@ -40,8 +34,7 @@ class Solution(object):
         if l1.val >= 10:
             l1.val -= 10
             return 1
-        else:
-            return 0
+        return 0
 
 if __name__ == "__main__":
     sol = Solution()
