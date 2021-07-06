@@ -28,7 +28,7 @@ class TicTacToe(object):
         :rtype: int
         """
         for i, x in enumerate((row, col, row + col, row - col)):
-            self.count[i, x, player] += 1
+            self.count[i, x, player] += 1  # use i for distinguish between row 0 and col 0
             if self.count[i, x, player] == self.n:
                 return player
         return 0
