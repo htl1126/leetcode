@@ -15,15 +15,14 @@ class Solution:
         #
         #   n = 2
         #   => ans = [[2, 1, 1], [1, 2, 1], [1, 1, 2]]
-        ans = [[]]
-        for n in nums:
-            new_ans = []
-            for l in ans:
-                for i in xrange(len(l) + 1):
-                    new_ans.append(l[:i] + [n] + l[i:])
-                    if i < len(l) and l[i] == n:  # avoid duplicates
-                        break
-            ans = new_ans
+        if len(nums) <= 1:
+            return [nums]
+        ans = []
+        for p in self.permuteUnique(nums[1:]):
+            for i in range(len(nums)):
+                ans.append(p[:i] + [nums[0]] + p[i:])
+                if i < len(p) and nums[0] == p[i]:
+                    break
         return ans
 
 if __name__ == '__main__':
