@@ -1,12 +1,16 @@
 # math solution
 
-class Solution(object):
-    def convert(self, s, numRows):
-        """
-        :type s: str
-        :type numRows: int
-        :rtype: str
-        """
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        # Input: s = "PAYPALISHIRING", numRows = 4
+        # Output: "PINALSIGYAHRPI"
+        # Explanation:
+        # P     I    N
+        # A   L S  I G
+        # Y A   H R
+        # P     I
+        # ^^^^^
+        # Split every (numRows - 1) * 2 chars as groups
         if numRows == 1 or len(s) == 0:
             return s
         result = [''] * numRows
