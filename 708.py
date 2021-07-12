@@ -19,11 +19,11 @@ class Solution(object):
             return new_node
         node = head
         while True:
-            if node.val > node.next.val and (node.val <= insertVal or insertVal <= node.next.val):
+            if node.val > node.next.val and (node.val <= insertVal or insertVal <= node.next.val):  # the end of the number sequence but in the middle of the circle
                 break
-            elif node.val <= insertVal <= node.next.val:
+            elif node.val <= insertVal <= node.next.val:  # the middle of the circle
                 break
-            elif node.next == head:
+            elif node.next == head:  # the end of the circle
                 break
             node = node.next
         new_node.next = node.next
