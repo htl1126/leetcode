@@ -2,20 +2,14 @@
 # The code is cleaner than Stefan's and idea is good too
 
 
-class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: bool
-        """
+class Solution:
+    def search(self, nums: List[int], target: int) -> bool:
         left, right = 0, len(nums) - 1
-        # ket step: remove trailing numbers same as nums[0]
-        while left < right and nums[left] == nums[right]:
+        # this loop avoids case [1, 0, 1, 1, 1], target = 0
+        while left < right and nums[left] == nums[right]:  # check "left < right" for case [1]
             right -= 1
-        # then do the same as the problem I
         while left <= right:
-            mid = (left + right) / 2
+            mid = (left + right) // 2
             if (nums[mid] >= nums[0]) == (target >= nums[0]):
                 num = nums[mid]
             else:
