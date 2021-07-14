@@ -25,7 +25,7 @@ class NumArray:
         n = self.l + right
         ans = 0
         while m <= n:
-            if m & 1 != 0:
+            if m & 1 == 1:
                 ans += self.tree[m]
                 m += 1
             m >>= 1
