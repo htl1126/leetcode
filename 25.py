@@ -1,3 +1,5 @@
+# ref: https://leetcode.com/problems/reverse-nodes-in-k-group/discuss/11491/Succinct-iterative-Python-O(n)-time-O(1)-space
+
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, x):
@@ -5,46 +7,24 @@ class ListNode(object):
         self.next = None
 
 
-class Solution(object):
-    def reverseKGroup(self, head, k):
-        """
-        :type head: ListNode
-        :type k: int
-        :rtype: ListNode
-        """
-        if k == 1 or not head:
-            return head
-        dummy = ListNode(None)
-        dummy.next = head
-        begin, cur = head, head
-        prebegin, postcur = None, cur.next
-        cur_len = 1
-        while cur:
-            if cur_len == k:
-                p, q = begin, begin.next
-                for i in xrange(k - 1):
-                    q.next, tmp = p, q.next
-                    if i == 0:
-                        p.next = postcur
-                        cur = p
-                    p, q = q, tmp
-                begin = p
-                if prebegin:
-                    prebegin.next = begin
-                else:
-                    dummy.next = begin
-                prebegin, begin, cur = cur, postcur, postcur
-                if not cur:
-                    break
-                postcur = cur.next
-                cur_len = 1
-            cur = cur.next
-            cur_len += 1
-            if postcur:
-                postcur = postcur.next
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        dummy = jump = ListNode(0)
+        dummy.next = l = r = head
+    
+        while True:
+            count = 0
+            while r and count < k:   # use r to locate the range
+                r = r.next
+                count += 1
+            if count == k:  # if size k satisfied, reverse the inner linked list
+                pre, cur = r, l
+                for _ in range(k):
+                    cur.next, cur, pre = pre, cur.next, cur  # standard reversing
+                # connect two k-groups, also make 'dummy' connect to the first new k-group
+                jump.next, jump, l = pre, l, r
             else:
-                break
-        return dummy.next
+                return dummy.next
 
 if __name__ == '__main__':
     sol = Solution()
