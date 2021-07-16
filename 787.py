@@ -6,6 +6,8 @@ class Solution:
         for a, b, w in flights:
             g[a][b] = w
         q = [(0, src, K + 1)]
+        # This BFS approach guarantees that no node will be visited twice since this will lead
+        # to a longer route (and a cycle)
         while q:
             p, i, k = heapq.heappop(q)
             if i == dst:
