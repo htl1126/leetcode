@@ -7,12 +7,8 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
-class Solution(object):
-    def boundaryOfBinaryTree(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[int]
-        """
+class Solution:
+    def boundaryOfBinaryTree(self, root: TreeNode) -> List[int]:
         def dfs_leftmost(node):
             if not node or not node.left and not node.right:
                 return
