@@ -13,6 +13,7 @@ class Solution:
             return l
         left = search(target)
         # case nums = [1, 2, 2, 3], target = 4 will lead to nums[left:left + 1] == []
+        # case nums = [1, 3, 3, 4], target = 2 will lead to nums[left:left + 1] == [3]
         return [left, search(target + 1) - 1] if target in nums[left:left + 1] else [-1, -1]
 
 if __name__ == '__main__':
