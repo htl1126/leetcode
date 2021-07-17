@@ -1,29 +1,18 @@
+# ref: https://leetcode.com/problems/validate-binary-tree-nodes/discuss/939381/Python%3A-clean-BFS-96-faster-TimeComplexity%3A-O(n)-Space-Complexity%3A-O(n)
+
 class Solution:
     def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
-        # 1. find root node (left -1 right -1)
-        # 2. visit from root with DFS
-        # 3. can visit all the nodes (every node should visit only once) with any root => true
-        #    else false
-        root_cand = set(range(n))
-        g = {}
+        root, children = 0, set(leftChild + rightChild)
         for i in range(n):
-            g[i] = []
-            if leftChild[i] != -1:
-                g[i].append(leftChild[i])
-                if leftChild[i] in root_cand:
-                    root_cand.remove(leftChild[i])
-            if rightChild[i] != -1:
-                g[i].append(rightChild[i])
-                if rightChild[i] in root_cand:
-                    root_cand.remove(rightChild[i])
-        if len(root_cand) != 1:
-            return False
-        visited = [False] * n
-        def dfs(i):
-            if visited[i]:
+            if i not in children:
+                root = i
+        queue, visited = [root], set()
+        for node in queue:
+            if node in visited:
                 return False
-            visited[i] = True
-            if g[i]:
-                return all(map(dfs, g[i]))
-            return True
-        return dfs(root_cand.pop()) and all(visited)
+            visited.add(node)
+            if leftChild[node] != -1:
+                queue.append(leftChild[node])
+            if rightChild[node] != -1:
+                queue.append(rightChild[node])
+        return len(visited) == n
