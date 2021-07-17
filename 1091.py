@@ -1,13 +1,12 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
         d = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
-        queue = collections.deque()
+        queue = []
         if grid[0][0] == 0:
             queue.append([1, (0, 0)])
         r, c = len(grid), len(grid[0])
         visited = [[False for _ in range(c)] for _ in range(r)]
-        while queue:
-            length, (x, y) = queue.popleft()
+        for length, (x, y) in queue:
             if (x, y) == (r - 1, c - 1):
                 return length
             for dx, dy in d:
