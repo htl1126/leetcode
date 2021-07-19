@@ -6,7 +6,10 @@ class Solution:
         d = {0: -1}
         for i, num in enumerate(nums):
             count += 1 if num else -1
-            max_len = max(max_len, i - d.setdefault(count, i)) 
+            if count in d:
+                max_len = max(max_len, i - d[count])
+            else:
+                d[count] = i
         return max_len
 
 if __name__ == "__main__":
