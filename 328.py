@@ -1,3 +1,5 @@
+# ref: https://leetcode.com/problems/odd-even-linked-list/discuss/133345/With-detailed-explanation-or-Python
+
 # Definition for singly-linked list.
 class ListNode(object):
     def __init__(self, x):
