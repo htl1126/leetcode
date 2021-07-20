@@ -13,7 +13,7 @@ class Solution(object):
         ans = []
         while i + p_len <= s_len:
             cnt_s[s[i + p_len - 1]] += 1
-            if cnt_s == cnt_p:
+            if cnt_s == cnt_p:  # time complexity is O(1) because there are at most 26 letters
                 ans.append(i)
             cnt_s[s[i]] -= 1
             if cnt_s[s[i]] == 0:
