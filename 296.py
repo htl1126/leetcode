@@ -1,18 +1,17 @@
 # ref: https://discuss.leetcode.com/topic/27746/3-8-lines-o-mn-python
 
 
-class Solution(object):
-    def minTotalDistance(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def minTotalDistance(self, grid: List[List[int]]) -> int:
         total = 0
-        for grid in grid, zip(*grid):
+        # We get each row of the grid and each column of the grid
+        for grid in grid, zip(*grid):  # zip(*grid): rotate the grid with 90 degrees
             X = []
             for x, row in enumerate(grid):
                 X += [x] * sum(row)
-            total += sum(abs(x - X[len(X) / 2]) for x in X)
+            for x in X:
+                # calculate the minimum sum of distances from the median to all the points
+                total += abs(x - X[len(X) // 2])
         return total
 
 if __name__ == '__main__':
