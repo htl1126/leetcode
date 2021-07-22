@@ -10,19 +10,21 @@ class TreeNode(object):
         self.right = None
 
 
-class Solution(object):
-    def verticalOrder(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
-        cols = collections.defaultdict(list)
-        queue = [(root, 0)]
-        for node, i in queue:
-            if node:
-                cols[i].append(node.val)
-                queue += (node.left, i - 1), (node.right, i + 1)
-        return [cols[i] for i in sorted(cols)]
+class Solution:
+    def verticalOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        queue, d = [(0, root)], collections.defaultdict(list)
+        while queue:
+            new = []
+            for i, node in queue:
+                d[i].append(node.val)
+                if node.left:
+                    new.append((i - 1, node.left))
+                if node.right:
+                    new.append((i + 1, node.right))
+            queue = new
+        return [d[i] for i in sorted(d)]
 
 if __name__ == '__main__':
     sol = Solution()
