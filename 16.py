@@ -33,8 +33,6 @@ class Solution:
         if target <= closest:
             return closest
 
-        diff = abs(closest - target)
-
         for i in range(len(nums) - 2):
             # Look for the second number:
             # From index i + 1, find the smallest number nums[left] such that
@@ -59,9 +57,8 @@ class Solution:
                         summ = nums[i] + nums[j] + nums[val]
                         if summ == target:
                             return target
-                        if abs(summ - target) < diff:
+                        if abs(summ - target) < abs(closest - target):
                             closest = summ
-                            diff = abs(summ - target)
                 # current j is the largest index for the second number
                 if nums[i] + nums[j] + nums[j + 1] > target:
                     break
