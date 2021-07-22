@@ -8,7 +8,7 @@ class Solution:
             m = (l + r) // 2
             if nums[m] > nums[r]:
                 l = m + 1
-            else:
+            elif nums[m] < nums[r]:  # nums[m] could be the minimum, case [3, 1, 2]
                 r = m
         return nums[l]
 
