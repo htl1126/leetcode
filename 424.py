@@ -3,7 +3,7 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         res = maxfreq = 0  # res is the current longest result sequence size up to index i
-        count = collections.Counter()
+        count = collections.defaultdict(int)
         for i in range(len(s)):
             count[s[i]] += 1
             maxfreq = max(maxfreq, count[s[i]])
