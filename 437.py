@@ -8,23 +8,22 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
-class Solution(object):
-    def pathSum(self, root, sum):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: int
-        """
-        return self.find(root, sum, [sum])
+class Solution:
+    def pathSum(self, root: TreeNode, targetSum: int) -> int:
+        ans, cache = [0], collections.defaultdict(int)
+        cache[0] = 1
 
-    def find(self, node, target, sums):
-        if not node:
-            return 0
-        hit = 0
-        hit += sum(s - node.val == 0 for s in sums)
-        sums = [s - node.val for s in sums] + [target]
-        return (hit + self.find(node.left, target, sums) +
-                 self.find(node.right, target, sums))
+        def dfs(root, cur_sum):
+            if root:
+                cur_sum += root.val
+                ans[0] += cache[cur_sum - targetSum]
+                cache[cur_sum] += 1
+                dfs(root.left, cur_sum)
+                dfs(root.right, cur_sum)
+                cache[cur_sum] -= 1
+
+        dfs(root, 0)
+        return ans[0]
 
 if __name__ == '__main__':
     sol = Solution()
