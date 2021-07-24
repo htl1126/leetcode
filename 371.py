@@ -12,7 +12,7 @@ class Solution:
             # "(a & b) << 1" moves carry bits one shift to the left.
             # They would be added for the next iteration
             a, b = (a ^ b) & mask, ((a & b) << 1) & mask
-        # if a is negative, we have to flip all the leading zeros to ones
+        # if a is negative, we have to flip all the leading zeros that are beyond 32-bit range to ones
         return a if a <= MAX_INT else ~(a ^ mask)
 
 if __name__ == '__main__':
