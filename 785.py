@@ -1,23 +1,21 @@
 # Ref: https://leetcode.com/problems/is-graph-bipartite/discuss/115543/Easy-Python-Solution
 
-class Solution(object):
-    def isBipartite(self, graph):
-        """
-        :type graph: List[List[int]]
-        :rtype: bool
-        """
-        color = {}
-        def dfs(node):
-            for i in graph[node]:
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        color, n = {}, len(graph)
+        
+        def dfs(n):
+            for i in graph[n]:
                 if i in color:
-                    if color[i] == color[node]:
+                    if color[i] == color[n]:
                         return False
                 else:
-                    color[i] = 1 - color[node]
+                    color[i] = 1 - color[n]
                     if not dfs(i):
                         return False
             return True
-        for i in xrange(len(graph)):
+        
+        for i in range(n):
             if i not in color:
                 color[i] = 0
                 if not dfs(i):
