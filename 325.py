@@ -13,7 +13,7 @@ class Solution(object):
         mp = {0: -1}
         for i in xrange(len(nums)):
             acc += nums[i]
-            if acc not in mp:
+            if acc not in mp:  # only keep the "acc" value for the smallest i
                 mp[acc] = i
             if acc - k in mp:
                 ans = max(ans, i - mp[acc - k])
