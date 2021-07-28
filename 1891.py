@@ -6,6 +6,8 @@ class Solution:
             return 0
         l, r = 1, max(ribbons)
         while l < r:
+            # if we set m = (l + r) // 2, we could probably get into
+            # an infinite loop when we keep going to "l = m" for case [9, 7, 5], 3
             m = (l + r + 1) // 2  # ceil((l + r) // 2) = (l + r + 1) // 2
             pieces = sum(i // m for i in ribbons)
             if pieces < k:
