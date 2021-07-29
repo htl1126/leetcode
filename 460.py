@@ -38,8 +38,8 @@ class LFUCache:
     def __init__(self, capacity: int):
         self.size = 0
         self.capacity = capacity
-        self.node = dict()
-        self.freq = collections.defaultdict(DLinkedList)
+        self.node = dict()  # collection of nodes
+        self.freq = collections.defaultdict(DLinkedList)  # map from frequency to an ordered list of nodes
         self.minfreq = 0
 
     def inc_freq(self, node):
@@ -67,7 +67,7 @@ class LFUCache:
             node.val = value
         else:
             if self.size == self.capacity:
-                node = self.freq[self.minfreq].pop()
+                node = self.freq[self.minfreq].pop()  # pop the least recently used element of minimum freq
                 del self.node[node.key]
                 self.size -= 1
             node = Node(key, value)
