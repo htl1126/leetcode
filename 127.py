@@ -6,21 +6,17 @@ class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
-        length = 2
-        size = len(beginWord)
-        front = set([beginWord])
-        back = set([endWord])
+        front, back = set([beginWord]), set([endWord])
+        length, size = 2, len(beginWord)
         wordList = set(wordList)
-        wordList.discard(beginWord)
         while front:
-            front = wordList & set(w[:i] + c + w[i + 1:] for w in front for i in range(size)
-                                   for c in 'abcdefghijklmnopqrstuvwxyz')
+            wordList -= front  # remove seen words
+            front = wordList & set(w[:i] + c + w[i + 1:] for w in front for i in range(size) for c in "abcdefghijklmnopqrstuvwxyz")
             if front & back:
                 return length
             length += 1
             if len(front) > len(back):
                 front, back = back, front
-            wordList -= front
         return 0
 
 if __name__ == '__main__':
