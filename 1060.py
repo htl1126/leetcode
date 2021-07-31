@@ -10,8 +10,9 @@ class Solution(object):
         :rtype: int
         """
         l, r = 0, len(nums) - 1
+        # find an l such that nums[l] < nums[0] + l + k < nums[l + 1]
         while l < r:
-            mid = (l + r + 1) / 2
+            mid = (l + r + 1) / 2  # deal with the case that l + 1 == r and getting trapped in "l = mid" branch
             if nums[mid] >= nums[0] + mid + k:
                 r = mid - 1
             else:
