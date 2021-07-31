@@ -34,3 +34,29 @@ if __name__ == "__main__":
 
 # Algorithm: math
 # Ref: https://leetcode.com/problems/task-scheduler/discuss/104507
+
+
+# Solution 2
+# ref: https://leetcode.com/problems/task-scheduler/discuss/130786/Python-solution-with-detailed-explanation
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        curr_time, h = 0, []
+        for task, freq in collections.Counter(tasks).items():
+            heappush(h, (-freq, task))
+        while h:
+            i, temp = 0, []
+            # for every subwindow of size n, we want to place as many task as possible, and
+            # pick higher frequent tasks first
+            while i <= n:
+                curr_time += 1
+                if h:
+                    neg_freq, task = heapq.heappop(h)
+                    if neg_freq != -1:
+                        temp.append((neg_freq + 1, task))
+                if not h and not temp:
+                    break
+                i += 1
+            for item in temp:
+                heapq.heappush(h, item)
+        return curr_time
