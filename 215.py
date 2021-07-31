@@ -17,6 +17,7 @@ class Solution:
         pivot = random.randint(lo, hi)
         nums[pivot], nums[hi] = nums[hi], nums[pivot]
         low, l = lo, lo
+        # place larger numbers behind the pivot and small numbers after the pivot
         while l < hi:
             if nums[l] > nums[hi]:
                 nums[l], nums[low] = nums[low], nums[l]
