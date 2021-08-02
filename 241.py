@@ -1,25 +1,27 @@
-# ref: https://discuss.leetcode.com/topic/19894/1-11-lines-python-9-lines-c
-import re
-import operator
+# ref: https://leetcode.com/problems/different-ways-to-add-parentheses/discuss/66419/Python-easy-to-understand-concise-solution-with-memorization
 
 
-class Solution(object):
-    def diffWaysToCompute(self, input):
-        """
-        :type input: str
-        :rtype: List[int]
-        """
-        tokens = re.split('(\D)', input)
-        nums = map(int, tokens[::2])
-        ops = map({'+': operator.add, '-': operator.sub, '*': operator.mul}.get,
-                  tokens[1::2])
-
-        def build(lo, hi):
-            if lo == hi:
-                return [nums[lo]]
-            return [ops[i](a, b) for i in xrange(lo, hi) for a in build(lo, i)
-                    for b in build(i + 1, hi)]
-        return build(0, len(nums) - 1)
+class Solution:
+    def diffWaysToCompute(self, expression: str, memo={}) -> List[int]:
+        if expression.isdigit():
+            return [int(expression)]
+        if expression not in memo:
+            res = []
+            for i in range(len(expression)):
+                if expression[i] in "-+*":
+                    res1 = self.diffWaysToCompute(expression[:i], memo)
+                    res2 = self.diffWaysToCompute(expression[i + 1:], memo)
+                    for x in res1:
+                        for y in res2:
+                            op = expression[i]
+                            if op == "+":
+                                res.append(x + y)
+                            elif op == "-":
+                                res.append(x - y)
+                            else:
+                                res.append(x * y)
+            memo[expression] = res
+        return memo[expression]
 
 if __name__ == '__main__':
     sol = Solution()
