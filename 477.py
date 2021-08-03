@@ -1,13 +1,14 @@
-# ref: https://discuss.leetcode.com/topic/72149/python-via-strings
+# ref: https://leetcode.com/problems/total-hamming-distance/discuss/96228/Python-Explanation
 
 
-class Solution(object):
-    def totalHammingDistance(self, nums):
-        """ 
-        :type nums: List[int]
-        :rtype: int
-        """
-        return sum(b.count('0') * b.count('1') for b in zip(*(map('{:032b}'.format, nums))))
+class Solution:
+    def totalHammingDistance(self, nums: List[int]) -> int:
+        bits = [[0, 0] for _ in range(32)]
+        for n in nums:
+            for bit in bits:
+                bit[n % 2] += 1
+                n >>= 1
+        return sum(i * j for i, j in bits)
 
 if __name__ == '__main__':
     sol = Solution()
