@@ -2,21 +2,16 @@
 # DP solution
 
 
-class Solution(object):
-    def maxSubArrayLen(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
+class Solution:
+    def maxSubArrayLen(self, nums: List[int], k: int) -> int:
         acc, ans = 0, 0
-        mp = {0: -1}
-        for i in xrange(len(nums)):
+        d = {0: -1}
+        for i in range(len(nums)):
             acc += nums[i]
-            if acc not in mp:  # only keep the "acc" value for the smallest i
-                mp[acc] = i
-            if acc - k in mp:
-                ans = max(ans, i - mp[acc - k])
+            if acc not in d:  # only keep the "acc" value for the smallest i
+                d[acc] = i
+            if acc - k in d:
+                ans = max(ans, i - d[acc - k])
         return ans
 
 if __name__ == '__main__':
