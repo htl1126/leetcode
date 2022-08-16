@@ -1,17 +1,16 @@
-# ref: https://discuss.leetcode.com/topic/31561/some-python-solutions
+# ref: https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/discuss/308210/JavaC%2B%2BPython-Stack-Solution-O(N)
 
-class Solution(object):
-    def removeDuplicateLetters(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        for c in sorted(set(s)):
-            suffix = s[s.index(c):]
-            if set(suffix) == set(s):
-                return c + self.removeDuplicateLetters(suffix.replace(c, ''))
-        return ''
-
-if __name__ == '__main__':
-    sol = Solution()
-    print sol.removeDuplicateLetters('cba')
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str:
+        last = {c: i for i, c in enumerate(s)}
+        stack = []
+        for i, c in enumerate(s):
+            if c in stack:
+                continue
+            # the while loop here tries to "move" c to a position closer
+            # to the stack bottom and popped characters will be added later
+            # since they're not the last one in s
+            while stack and stack[-1] > c and i < last[stack[-1]]:
+                stack.pop()
+            stack.append(c)
+        return "".join(stack)
